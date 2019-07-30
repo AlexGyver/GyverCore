@@ -1,0 +1,30 @@
+{
+  "packages": [
+    {
+      "name": "GyverCore",
+      "maintainer": "AlexGyver",
+      "websiteURL": "https://alexgyver.ru",
+      "email": "",
+      "help": {
+        "online": "https://alexgyver.ru"
+      },
+      "platforms": [
+        {
+          "name": "GyverCore",
+          "architecture": "avr",
+          "version": "1.0.0",
+          "category": "Contributed",
+          "url": "https://alexgyver.ru/GyverCore.zip",
+          "archiveFileName": "GyverCore.zip",
+          "checksum": "MD5:0148a8cb4e0c8e33f1f55de69b561609",
+          "size": "178391",
+          "boards": [
+            {"name": "ATmega328 boards"}
+          ],
+          "toolsDependencies": []
+        }
+      ],
+      "tools": []
+    }
+  ]
+}
