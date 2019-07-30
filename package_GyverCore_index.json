@@ -14,7 +14,7 @@
           "architecture": "avr",
           "version": "1.0.0",
           "category": "Contributed",
-          "url": "https://alexgyver.ru/GyverCore.zip",
+          "url": "https://github.com/AlexGyver/GyverCore/releases/download/GyverCore/GyverCore.zip",
           "archiveFileName": "GyverCore.zip",
           "checksum": "MD5:0148a8cb4e0c8e33f1f55de69b561609",
           "size": "178391",
