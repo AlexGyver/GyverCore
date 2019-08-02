@@ -17,6 +17,7 @@ attachInterrupt | 1.20 us   | 1.18 us   | 1.02
 detachInterrupt | 0.82 us   | 0.57 us   | 1.44      
 
 Занимаемое место, Flash
+
 Функция         | Arduino | GyverCore | Разница, Flash 
 ----------------|---------|-----------|---------------
 pinMode         | 114     | 24        | 90             
