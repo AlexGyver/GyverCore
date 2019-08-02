@@ -1,4 +1,4 @@
-![CORE_PHOTO](https://github.com/AlexGyver/GyverCore/blob/master/gyverCore.jpg)
+![CORE_PHOTO](https://github.com/AlexGyver/GyverCore/blob/master/gyverCoreLogo.jpg)
 # GyverCore for ATmega328/168
  Быстрое и лёгкое ядро для Arduino IDE.
  Основано на оригинальном ядре Arduino версии 1.8.9, большинство функций заменены на более быстрые и лёгкие аналоги, убрано всё лишнее и не относящееся к микроконтроллеру ATmega328p, убран почти весь Wiring-мусор, код упрощён и причёсан. 
