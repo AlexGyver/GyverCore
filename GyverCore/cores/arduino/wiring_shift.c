@@ -20,7 +20,7 @@
   Boston, MA  02111-1307  USA
 */
 
-#include "wiring_private.h"
+#include "Arduino.h"
 
 uint8_t shiftIn(uint8_t dataPin, uint8_t clockPin, uint8_t bitOrder) {
 	uint8_t value = 0;

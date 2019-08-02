@@ -1,6 +1,7 @@
 # See: http://code.google.com/p/arduino/wiki/Platforms
 
-menu.cpu=Processor
+menu.cpu=CPU & BOOT
+menu.timers=Timers
 
 ######################
 
@@ -16,26 +17,37 @@ nano.bootloader.lock_bits=0x0F
 nano.build.f_cpu=16000000L
 nano.build.board=AVR_NANO
 nano.build.core=arduino
-nano.build.variant=eightanaloginputs
+## почему у оптибута неправильно стоят фьюзы? https://github.com/arduino/ArduinoCore-avr/issues/10
 
-## GyverCore w/ ATmega328P
+## timer0 OVF ON/OFF
 ## --------------------------
-nano.menu.cpu.atmega328=ATmega328P
+nano.menu.timers.yes_millis=yes millis
+nano.menu.timers.yes_millis.build.variant=yesmillis
 
+nano.menu.timers.no_millis=no millis
+nano.menu.timers.no_millis.build.variant=nomillis
+
+
+## ATmega328P - optiBoot
+## --------------------------
+nano.menu.cpu.atmega328=ATmega328P - optiBoot
+
+##nano.menu.cpu.atmega328.upload.maximum_size=32256
 nano.menu.cpu.atmega328.upload.maximum_size=30720
 nano.menu.cpu.atmega328.upload.maximum_data_size=2048
 nano.menu.cpu.atmega328.upload.speed=115200
 
 nano.menu.cpu.atmega328.bootloader.low_fuses=0xFF
 nano.menu.cpu.atmega328.bootloader.high_fuses=0xDA
+##nano.menu.cpu.atmega328.bootloader.high_fuses=0xDE
 nano.menu.cpu.atmega328.bootloader.extended_fuses=0xFD
 nano.menu.cpu.atmega328.bootloader.file=optiboot/optiboot_atmega328.hex
 
 nano.menu.cpu.atmega328.build.mcu=atmega328p
 
-## GyverCore w/ ATmega328P (old bootloader)
+## ATmega328P - old bootloader
 ## --------------------------
-nano.menu.cpu.atmega328old=ATmega328P (Old Bootloader)
+nano.menu.cpu.atmega328old=ATmega328P - old bootloader
 
 nano.menu.cpu.atmega328old.upload.maximum_size=30720
 nano.menu.cpu.atmega328old.upload.maximum_data_size=2048
@@ -48,18 +60,60 @@ nano.menu.cpu.atmega328old.bootloader.file=atmega/ATmegaBOOT_168_atmega328.hex
 
 nano.menu.cpu.atmega328old.build.mcu=atmega328p
 
+## ATmega328P - NO bootloader
+## --------------------------
+nano.menu.cpu.atmega328noBoot=ATmega328P - NO bootloader
 
-## GyverCore w/ ATmega168
+nano.menu.cpu.atmega328noBoot.upload.maximum_size=32768
+nano.menu.cpu.atmega328noBoot.upload.maximum_data_size=2048
+
+nano.menu.cpu.atmega328noBoot.bootloader.low_fuses=0xFF
+nano.menu.cpu.atmega328noBoot.bootloader.high_fuses=0xDF
+nano.menu.cpu.atmega328noBoot.bootloader.extended_fuses=0xFD
+
+nano.menu.cpu.atmega328noBoot.build.mcu=atmega328p
+
+## ATmega168 - optiBoot
 ## -------------------------
-nano.menu.cpu.atmega168=ATmega168
+nano.menu.cpu.atmega168=ATmega168 - optiBoot
 
 nano.menu.cpu.atmega168.upload.maximum_size=14336
+##nano.menu.cpu.atmega168.upload.maximum_size=15360
 nano.menu.cpu.atmega168.upload.maximum_data_size=1024
-nano.menu.cpu.atmega168.upload.speed=19200
+nano.menu.cpu.atmega168.upload.speed=115200
 
 nano.menu.cpu.atmega168.bootloader.low_fuses=0xff
 nano.menu.cpu.atmega168.bootloader.high_fuses=0xdd
 nano.menu.cpu.atmega168.bootloader.extended_fuses=0xF8
-nano.menu.cpu.atmega168.bootloader.file=atmega/ATmegaBOOT_168_diecimila.hex
+##nano.menu.cpu.atmega168.bootloader.extended_fuses=0xFE
+nano.menu.cpu.atmega168.bootloader.file=optiboot/optiboot_atmega168.hex
 
 nano.menu.cpu.atmega168.build.mcu=atmega168
+
+## ATmega168 - old bootloader
+## -------------------------
+nano.menu.cpu.atmega168old=ATmega168 - old bootloader
+
+nano.menu.cpu.atmega168old.upload.maximum_size=14336
+nano.menu.cpu.atmega168old.upload.maximum_data_size=1024
+nano.menu.cpu.atmega168old.upload.speed=19200
+
+nano.menu.cpu.atmega168old.bootloader.low_fuses=0xff
+nano.menu.cpu.atmega168old.bootloader.high_fuses=0xdd
+nano.menu.cpu.atmega168old.bootloader.extended_fuses=0xF8
+nano.menu.cpu.atmega168old.bootloader.file=atmega/ATmegaBOOT_168_diecimila.hex
+
+nano.menu.cpu.atmega168old.build.mcu=atmega168
+
+## ATmega168 - NO bootloader
+## -------------------------
+nano.menu.cpu.atmega168noBoot=ATmega168 - NO bootloader
+
+nano.menu.cpu.atmega168noBoot.upload.maximum_size=16144
+nano.menu.cpu.atmega168noBoot.upload.maximum_data_size=1024
+
+nano.menu.cpu.atmega168noBoot.bootloader.low_fuses=0xff
+nano.menu.cpu.atmega168noBoot.bootloader.high_fuses=0xdd
+nano.menu.cpu.atmega168noBoot.bootloader.extended_fuses=0xff
+
+nano.menu.cpu.atmega168noBoot.build.mcu=atmega168

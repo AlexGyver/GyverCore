@@ -21,13 +21,13 @@
   Modified 14 August 2012 by Alarus
   Modified 3 December 2013 by Matthijs Kooijman
 */
-
+#include "Arduino.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include <inttypes.h>
 #include <util/atomic.h>
-#include "Arduino.h"
+
 
 #include "HardwareSerial.h"
 #include "HardwareSerial_private.h"
@@ -75,6 +75,7 @@ void serialEventRun(void)
 #if defined(HAVE_HWSERIAL3)
   if (Serial3_available && serialEvent3 && Serial3_available()) serialEvent3();
 #endif
+
 }
 
 // macro to guard critical sections when needed for large TX buffer sizes

@@ -1,0 +1,52 @@
+#######################################
+# Syntax Coloring Map
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+digitalToggle	KEYWORD2
+bitToggle	KEYWORD2
+analogPrescaler	KEYWORD2
+_BV	KEYWORD2
+cbi	KEYWORD2
+sbi	KEYWORD2
+setPWM_20kHz	KEYWORD2
+setPWM_9_10_resolution	KEYWORD2
+setPwmFreqnuency	KEYWORD2
+setPWM_default	KEYWORD2
+analogStartConvert	KEYWORD2
+analogGet	KEYWORD2
+
+uartBegin	KEYWORD2
+uartEnd	KEYWORD2
+uartPeek	KEYWORD2
+uartClear	KEYWORD2
+uartRead	KEYWORD2
+uartWrite	KEYWORD2	
+uartPrint	KEYWORD2
+uartPrintln	KEYWORD2
+uartAvailable	KEYWORD2
+uartSetTimeout	KEYWORD2
+uartParseInt	KEYWORD2
+uartReadString	KEYWORD2
+uartParseFloat	KEYWORD2
+uartParsePacket	KEYWORD2
+
+######################################
+# Constants (LITERAL1)
+#######################################
+THERMOMETR	LITERAL1
+A0	LITERAL1
+A1	LITERAL1
+A2	LITERAL1
+A3	LITERAL1
+A4	LITERAL1
+A5	LITERAL1
+A6	LITERAL1
+A7	LITERAL1
+

@@ -1,42 +1,47 @@
-/*
-  Arduino.h - Main include file for the Arduino SDK
-  Copyright (c) 2005-2013 Arduino Team.  All right reserved.
-
-  This library is free software; you can redistribute it and/or
-  modify it under the terms of the GNU Lesser General Public
-  License as published by the Free Software Foundation; either
-  version 2.1 of the License, or (at your option) any later version.
-
-  This library is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-  Lesser General Public License for more details.
-
-  You should have received a copy of the GNU Lesser General Public
-  License along with this library; if not, write to the Free Software
-  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-*/
-
+﻿
 #ifndef Arduino_h
 #define Arduino_h
 
+// ===== DEF LIBS =====
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
 #include <math.h>
-
 #include <avr/pgmspace.h>
 #include <avr/io.h>
 #include <avr/interrupt.h>
-
-#include "binary.h"
 
 #ifdef __cplusplus
 extern "C"{
 #endif
 
-void yield(void);
+// ===== PINS =====
+#define digitalPinToPCICR(p)    (((p) >= 0 && (p) <= 21) ? (&PCICR) : ((uint8_t *)0))
+#define digitalPinToPCICRbit(p) (((p) <= 7) ? 2 : (((p) <= 13) ? 0 : 1))
+#define digitalPinToPCMSK(p)    (((p) <= 7) ? (&PCMSK2) : (((p) <= 13) ? (&PCMSK0) : (((p) <= 21) ? (&PCMSK1) : ((uint8_t *)0))))
+#define digitalPinToPCMSKbit(p) (((p) <= 7) ? (p) : (((p) <= 13) ? ((p) - 8) : ((p) - 14)))
+#define digitalPinToInterrupt(p)  ((p) == 2 ? 0 : ((p) == 3 ? 1 : NOT_AN_INTERRUPT))
 
+#define PIN_SPI_SS    (10)
+#define PIN_SPI_MOSI  (11)
+#define PIN_SPI_MISO  (12)
+#define PIN_SPI_SCK   (13)
+#define PIN_WIRE_SDA  (18)
+#define PIN_WIRE_SCL  (19)
+#define LED_BUILTIN 13
+#define A0   (14)
+#define A1   (15)
+#define A2   (16)
+#define A3   (17)
+#define A4   (18)
+#define A5   (19)
+#define A6   (20)
+#define A7   (21)
+#define EXTERNAL_INT_0 (0)
+#define EXTERNAL_INT_1 (1)
+#define EXTERNAL_NUM_INTERRUPTS 2
+
+// ===== CONSTANTS =====
 #define HIGH 0x1
 #define LOW  0x0
 
@@ -61,30 +66,11 @@ void yield(void);
 #define FALLING 2
 #define RISING 3
 
-#if defined(__AVR_ATtiny24__) || defined(__AVR_ATtiny44__) || defined(__AVR_ATtiny84__)
-  #define DEFAULT 0
-  #define EXTERNAL 1
-  #define INTERNAL1V1 2
-  #define INTERNAL INTERNAL1V1
-#elif defined(__AVR_ATtiny25__) || defined(__AVR_ATtiny45__) || defined(__AVR_ATtiny85__)
-  #define DEFAULT 0
-  #define EXTERNAL 4
-  #define INTERNAL1V1 8
-  #define INTERNAL INTERNAL1V1
-  #define INTERNAL2V56 9
-  #define INTERNAL2V56_EXTCAP 13
-#else  
-#if defined(__AVR_ATmega1280__) || defined(__AVR_ATmega2560__) || defined(__AVR_ATmega1284__) || defined(__AVR_ATmega1284P__) || defined(__AVR_ATmega644__) || defined(__AVR_ATmega644A__) || defined(__AVR_ATmega644P__) || defined(__AVR_ATmega644PA__)
-#define INTERNAL1V1 2
-#define INTERNAL2V56 3
-#else
-#define INTERNAL 3
-#endif
+#define INTERNAL 28
 #define DEFAULT 1
 #define EXTERNAL 0
-#endif
-
-// undefine stdlib's abs if encountered
+#define THERMOMETR 22
+// ===== MATH MACRO =====
 #ifdef abs
 #undef abs
 #endif
@@ -112,30 +98,52 @@ void yield(void);
 #define bitSet(value, bit) ((value) |= (1UL << (bit)))
 #define bitClear(value, bit) ((value) &= ~(1UL << (bit)))
 #define bitWrite(value, bit, bitvalue) (bitvalue ? bitSet(value, bit) : bitClear(value, bit))
+#define bitToggle(value, bit) ((value) ^= (1 << bit))
 
-// avr-libc defines _NOP() since 1.6.2
+#define cbi(sfr, bit) (_SFR_BYTE(sfr) &= ~_BV(bit))
+#define sbi(sfr, bit) (_SFR_BYTE(sfr) |= _BV(bit))
+
+#define bit(b) (1UL << (b))
+
 #ifndef _NOP
 #define _NOP() do { __asm__ volatile ("nop"); } while (0)
 #endif
 
+
+// ===== FUNCTIONS & TYPES =====
+static void __empty() {
+	// Empty
+}
+void yield(void) __attribute__ ((weak, alias("__empty")));
+
+typedef void (*voidFuncPtr)(void);
 typedef unsigned int word;
-
-#define bit(b) (1UL << (b))
-
 typedef bool boolean;
 typedef uint8_t byte;
 
 void init(void);
-void initVariant(void);
 
-int atexit(void (*func)()) __attribute__((weak));
 
-void pinMode(uint8_t, uint8_t);
-void digitalWrite(uint8_t, uint8_t);
-int digitalRead(uint8_t);
-int analogRead(uint8_t);
+/* light uart*/
+
+
+// ===== PIN OPERATION ======
+// new
+void setPWM_20kHz(byte pin);
+void setPWM_9_10_resolution(boolean resolution); // 0 - 8 бит, 1 - 10 бит
+void setPwmFreqnuency(byte pin, byte freq); //default, 8KHZ, 31KHZ
+void setPWM_default(byte pin);
+void analogStartConvert(byte pin);
+void analogPrescaler(uint8_t prescl);
+int analogGet();
+void digitalToggle(uint8_t pin);
+// old
+void pinMode(uint8_t pin, uint8_t mode);
+void digitalWrite(uint8_t pin, uint8_t x);
+int digitalRead (uint8_t pin);
+int analogRead(uint8_t pin);
 void analogReference(uint8_t mode);
-void analogWrite(uint8_t, int);
+void analogWrite(uint8_t pin, int val);
 
 unsigned long millis(void);
 unsigned long micros(void);
@@ -147,19 +155,14 @@ unsigned long pulseInLong(uint8_t pin, uint8_t state, unsigned long timeout);
 void shiftOut(uint8_t dataPin, uint8_t clockPin, uint8_t bitOrder, uint8_t val);
 uint8_t shiftIn(uint8_t dataPin, uint8_t clockPin, uint8_t bitOrder);
 
-void attachInterrupt(uint8_t, void (*)(void), int mode);
+void attachInterrupt(uint8_t num,void (*isr)(), uint8_t type);
 void detachInterrupt(uint8_t);
 
 void setup(void);
 void loop(void);
 
-// Get the bit location within the hardware port of the given virtual pin.
-// This comes from the pins_*.c file for the active board configuration.
-
 #define analogInPinToBit(P) (P)
 
-// On the ATmega1280, the addresses of some of the port registers are
-// greater than 255, so we can't store them in uint8_t's.
 extern const uint16_t PROGMEM port_to_mode_PGM[];
 extern const uint16_t PROGMEM port_to_input_PGM[];
 extern const uint16_t PROGMEM port_to_output_PGM[];
@@ -169,11 +172,6 @@ extern const uint8_t PROGMEM digital_pin_to_port_PGM[];
 extern const uint8_t PROGMEM digital_pin_to_bit_mask_PGM[];
 extern const uint8_t PROGMEM digital_pin_to_timer_PGM[];
 
-// Get the bit location within the hardware port of the given virtual pin.
-// This comes from the pins_*.c file for the active board configuration.
-// 
-// These perform slightly better as macros compared to inline functions
-//
 #define digitalPinToPort(P) ( pgm_read_byte( digital_pin_to_port_PGM + (P) ) )
 #define digitalPinToBitMask(P) ( pgm_read_byte( digital_pin_to_bit_mask_PGM + (P) ) )
 #define digitalPinToTimer(P) ( pgm_read_byte( digital_pin_to_timer_PGM + (P) ) )
@@ -187,7 +185,6 @@ extern const uint8_t PROGMEM digital_pin_to_timer_PGM[];
 
 #define NOT_AN_INTERRUPT -1
 
-#ifdef ARDUINO_MAIN
 #define PA 1
 #define PB 2
 #define PC 3
@@ -199,7 +196,6 @@ extern const uint8_t PROGMEM digital_pin_to_timer_PGM[];
 #define PJ 10
 #define PK 11
 #define PL 12
-#endif
 
 #define NOT_ON_TIMER 0
 #define TIMER0A 1
@@ -227,13 +223,13 @@ extern const uint8_t PROGMEM digital_pin_to_timer_PGM[];
 #endif
 
 #ifdef __cplusplus
+// === FILES ===
+#include "binary.h"
 #include "WCharacter.h"
 #include "WString.h"
 #include "HardwareSerial.h"
-#include "USBAPI.h"
-#if defined(HAVE_HWSERIAL0) && defined(HAVE_CDCSERIAL)
-#error "Targets with both UART0 and CDC serial not supported"
-#endif
+#include "uart.h"
+//#include "USBAPI.h"
 
 uint16_t makeWord(uint16_t w);
 uint16_t makeWord(byte h, byte l);
@@ -253,7 +249,5 @@ void randomSeed(unsigned long);
 long map(long, long, long, long, long);
 
 #endif
-
-#include "pins_arduino.h"
 
 #endif
