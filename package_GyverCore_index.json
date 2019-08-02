@@ -6,7 +6,7 @@
       "websiteURL": "https://alexgyver.ru",
       "email": "",
       "help": {
-        "online": "https://alexgyver.ru"
+        "online": "https://github.com/AlexGyver/GyverCore"
       },
       "platforms": [
         {
@@ -16,8 +16,8 @@
           "category": "Contributed",
           "url": "https://github.com/AlexGyver/GyverCore/releases/download/GyverCore/GyverCore.zip",
           "archiveFileName": "GyverCore.zip",
-          "checksum": "MD5:0148a8cb4e0c8e33f1f55de69b561609",
-          "size": "178391",
+          "checksum": "MD5:758f491c55f177cca874f20eaf1d6e63",
+          "size": "139848",
           "boards": [
             {"name": "ATmega328 boards"}
           ],
