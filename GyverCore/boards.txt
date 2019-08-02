@@ -5,7 +5,7 @@ menu.timers=Timers
 
 ######################
 
-nano.name=ATmega328P based
+nano.name=ATmega328/168 based
 
 nano.upload.tool=avrdude
 nano.upload.protocol=arduino
@@ -21,10 +21,10 @@ nano.build.core=arduino
 
 ## timer0 OVF ON/OFF
 ## --------------------------
-nano.menu.timers.yes_millis=yes millis
+nano.menu.timers.yes_millis=with millis
 nano.menu.timers.yes_millis.build.variant=yesmillis
 
-nano.menu.timers.no_millis=no millis
+nano.menu.timers.no_millis=without millis
 nano.menu.timers.no_millis.build.variant=nomillis
 
 
@@ -62,7 +62,7 @@ nano.menu.cpu.atmega328old.build.mcu=atmega328p
 
 ## ATmega328P - NO bootloader
 ## --------------------------
-nano.menu.cpu.atmega328noBoot=ATmega328P - NO bootloader
+nano.menu.cpu.atmega328noBoot=ATmega328P - without bootloader
 
 nano.menu.cpu.atmega328noBoot.upload.maximum_size=32768
 nano.menu.cpu.atmega328noBoot.upload.maximum_data_size=2048
@@ -107,7 +107,7 @@ nano.menu.cpu.atmega168old.build.mcu=atmega168
 
 ## ATmega168 - NO bootloader
 ## -------------------------
-nano.menu.cpu.atmega168noBoot=ATmega168 - NO bootloader
+nano.menu.cpu.atmega168noBoot=ATmega168 - without bootloader
 
 nano.menu.cpu.atmega168noBoot.upload.maximum_size=16144
 nano.menu.cpu.atmega168noBoot.upload.maximum_data_size=1024

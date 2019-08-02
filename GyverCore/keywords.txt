@@ -40,6 +40,12 @@ uartParsePacket	KEYWORD2
 ######################################
 # Constants (LITERAL1)
 #######################################
+PWM_8BIT	LITERAL1
+PWM_10BIT	LITERAL1
+PWM_DEFAULT	LITERAL1
+PWM_8KHZ	LITERAL1
+PWM_31KHZ	LITERAL1
+
 THERMOMETR	LITERAL1
 A0	LITERAL1
 A1	LITERAL1

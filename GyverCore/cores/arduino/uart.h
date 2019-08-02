@@ -1,4 +1,6 @@
-﻿#ifndef uart_h
+﻿/* Облегченный Serial */
+
+#ifndef uart_h
 #define uart_h
 
 #include "Arduino.h"
