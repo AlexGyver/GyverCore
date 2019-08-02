@@ -4,16 +4,15 @@
 # Изменения
 ## Облегчено и ускорено
 Время выполнения функций, мкс
-| Функция         	| Arduino   	| GyverCore 	| Быстрее в 	|
-|-----------------	|-----------	|-----------	|-----------	|
-| pinMode         	| 2.90 us   	| 0.57 us   	| 5.09      	|
-| digitalWrite    	| 2.90 us   	| 0.57 us   	| 5.09      	|
-| digitalRead     	| 2.45 us   	| 0.50 us   	| 4.90      	|
-| analogWrite     	| 4.15 us   	| 1.13 us   	| 3.67      	|
-| analogRead      	| 112.01 us 	| 5.41 us   	| 20.70     	|
-| analogReference 	| 0.00 us   	| 0.69 us   	| 0.00      	|
-| attachInterrupt 	| 1.20 us   	| 1.18 us   	| 1.02      	|
-| detachInterrupt 	| 0.82 us   	| 0.57 us   	| 1.44      	|
-
+| Функция         | Arduino   | GyverCore | Быстрее в |
+|-----------------|-----------|-----------|-----------|
+| pinMode         | 2.90 us   | 0.57 us   | 5.09      |
+| digitalWrite    | 2.90 us   | 0.57 us   | 5.09      |
+| digitalRead     | 2.45 us   | 0.50 us   | 4.90      |
+| analogWrite     | 4.15 us   | 1.13 us   | 3.67      |
+| analogRead      | 112.01 us | 5.41 us   | 20.70     |
+| analogReference | 0.00 us   | 0.69 us   | 0.00      |
+| attachInterrupt | 1.20 us   | 1.18 us   | 1.02      |
+| detachInterrupt | 0.82 us   | 0.57 us   | 1.44      |
 
 ## Добавлено
