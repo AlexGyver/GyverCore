@@ -142,6 +142,7 @@ int analogRead(uint8_t pin)
 	ADMUX &= ~((1 << MUX3) | (1 << MUX2) | (1 << MUX1) | (1 << MUX0)); // обнуляем мультиплексор
 	ADMUX = ADMUX | pin; // задвигаем номер входа
 	sei();
+	if (pin == 8 || pin == 14) delay(2); // Wait for Vref to settle для VCC и термометра
 	ADCSRA |= (1 << ADSC); // начинаем преобразование
 	while (ADCSRA & (1 << ADSC)); // ждем окончания
 	return ADCL | (ADCH << 8); // склеить и вернуть результат
