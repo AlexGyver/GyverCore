@@ -16,9 +16,23 @@ analogReference | 0.00 us   | 0.69 us   | 0.00
 attachInterrupt | 1.20 us   | 1.18 us   | 1.02      
 detachInterrupt | 0.82 us   | 0.57 us   | 1.44      
 
-First Header | Second Header
------------- | -------------
-Content from cell 1 | Content from cell 2
-Content in the first column | Content in the second column
+Занимаемое место, Flash
+Функция         | Arduino | GyverCore | Разница, Flash 
+----------------|---------|-----------|---------------
+pinMode         | 114     | 24        | 90             
+digitalWrite    | 200     | 24        | 176            
+digitalRead     | 190     | 24        | 166            
+analogWrite     | 406     | 48        | 358            
+analogRead      | 32      | 72        | -40            
+analogReference | 0       | 32        | -32            
+attachInterrupt | 212     | 180       | 32             
+detachInterrupt | 198     | 150       | 48             
+Serial.begin    | 1028    | 166       | 862            
+print long      | 1094    | 326       | 768            
+print string    | 2100    | 1484      | 616            
+print float     | 2021    | 446       | 1575           
+parseInt        | 1030    | 214       | 816            
+readString      | 2334    | 1594      | 740            
+parseFloat      | 1070    | 246       | 824                   
 
 ## Добавлено
