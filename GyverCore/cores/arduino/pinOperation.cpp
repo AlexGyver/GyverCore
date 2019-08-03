@@ -1,6 +1,7 @@
 ﻿/*
 Нормальный ввод/вывод
 */
+#define ARDUINO_MAIN
 #include "Arduino.h"
 #include <avr/io.h>
 
