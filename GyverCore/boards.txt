@@ -1,6 +1,7 @@
 # See: http://code.google.com/p/arduino/wiki/Platforms
 
 menu.cpu=CPU & BOOT
+menu.clock=Clock
 menu.timers=Timers
 
 ######################
@@ -14,7 +15,6 @@ nano.bootloader.tool=avrdude
 nano.bootloader.unlock_bits=0x3F
 nano.bootloader.lock_bits=0x0F
 
-nano.build.f_cpu=16000000L
 nano.build.board=AVR_NANO
 nano.build.core=arduino
 ## почему у оптибута неправильно стоят фьюзы? https://github.com/arduino/ArduinoCore-avr/issues/10
@@ -26,6 +26,14 @@ nano.menu.timers.yes_millis.build.variant=yesmillis
 
 nano.menu.timers.no_millis=without millis
 nano.menu.timers.no_millis.build.variant=nomillis
+
+## Clock
+## --------------------------
+nano.menu.clock.clock16=16 MHz clock
+nano.menu.clock.clock16.build.f_cpu=16000000L
+
+nano.menu.clock.clock8=8 MHz clock
+nano.menu.clock.clock8.build.f_cpu=8000000L
 
 
 ## ATmega328P - optiBoot

@@ -2,13 +2,13 @@
 /* Реализация облегченного Serial от AlexGyver & Egor 'Nich1con' Zaharov*/
 
 // ===== INIT =====
-void uartBegin(uint32_t baudrate){  // инициализация uart
-	uint16_t speed = (2000000/baudrate)-1;  // расчет baudrate
-	UBRR0H = highByte(speed); // установка baudrate
+void uartBegin(uint32_t baudrate){  		// инициализация uart
+	uint16_t speed = ((F_CPU / 8) / baudrate) - 1;  // расчет baudrate
+	UBRR0H = highByte(speed); 				// установка baudrate
 	UBRR0L = lowByte(speed);
-	UCSR0A = (1 << U2X0); // вкл удвоенную скорость
+	UCSR0A = (1 << U2X0); 					// вкл удвоенную скорость
 	UCSR0B = ((1<<TXEN0) | (1<<RXEN0) | (1<<RXCIE0)); // вкл uart
-	UCSR0C = ((1<<UCSZ01) | (1<<UCSZ00)); // настраиваем формат данных
+	UCSR0C = ((1<<UCSZ01) | (1<<UCSZ00)); 	// настраиваем формат данных
 }
 void uartBegin(void) { // вызов uartBegin без параметра настроит скорость 9600
 	uartBegin(9600);

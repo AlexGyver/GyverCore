@@ -22,6 +22,20 @@
             {"name": "ATmega328/168 based boards"}
           ],
           "toolsDependencies": []
+        },
+		{
+          "name": "GyverCore",
+          "architecture": "avr",
+          "version": "1.1.0",
+          "category": "Contributed",
+          "url": "https://github.com/AlexGyver/GyverCore/releases/download/GyverCore-1.1.0/GyverCore.zip",
+          "archiveFileName": "GyverCore.zip",
+          "checksum": "MD5:148588713f9f3453f404f58118ec3207",
+          "size": "137713",
+          "boards": [
+            {"name": "ATmega328/168 based boards"}
+          ],
+          "toolsDependencies": []
         }
       ],
       "tools": []

@@ -1,10 +1,28 @@
 ﻿#include "Arduino.h"
 #include "timeControl.h"
 /* функции времени и инициализация таймеров , АЦП*/
-#define MICROSECONDS_PER_TIMER0_OVERFLOW (clockCyclesToMicroseconds(64 * 256))	// 1024
-#define MILLIS_INC (MICROSECONDS_PER_TIMER0_OVERFLOW / 1000)					// 1
-#define FRACT_INC ((MICROSECONDS_PER_TIMER0_OVERFLOW % 1000) >> 3)				// 3
-#define FRACT_MAX (1000 >> 3)													// 125
+/*
+#define MICROSECONDS_PER_TIMER0_OVERFLOW (clockCyclesToMicroseconds(64 * 256))	// 1024 на 16 МГц / 2048 на 8 МГц
+#define MILLIS_INC (MICROSECONDS_PER_TIMER0_OVERFLOW / 1000)					// 1 	на 16 МГц / 2 	на 8 МГц
+#define FRACT_INC ((MICROSECONDS_PER_TIMER0_OVERFLOW % 1000) >> 3)				// 3 	на 16 МГц / 6 	на 8 МГц
+#define FRACT_MAX (1000 >> 3)													// 125 	на 16 МГц / 125 на 8 МГц
+*/
+
+#if F_CPU >= 16000000L
+
+#define MILLIS_INC	1
+#define FRACT_INC	3
+#define FRACT_MAX	125
+#define MICROS_MULT	4
+
+#elif F_CPU >= 8000000L
+
+#define MILLIS_INC	2
+#define FRACT_INC	6
+#define FRACT_MAX	125
+#define MICROS_MULT	8
+
+#endif
 
 volatile unsigned long timer0_overflow_count = 0;
 volatile unsigned long timer0_millis = 0;
@@ -13,10 +31,10 @@ static unsigned char timer0_fract = 0;
 #ifdef MILLIS_TMRS  // переключатель, отключающий millis(), освобождающий вектор прерывания
 ISR(TIMER0_OVF_vect)
 {
-	timer0_millis++;
-	timer0_fract += 3;
-	if (timer0_fract >= 128) {
-		timer0_fract -= 125;
+	timer0_millis += MILLIS_INC;
+	timer0_fract += FRACT_INC;
+	if (timer0_fract >= FRACT_MAX) {
+		timer0_fract -= FRACT_MAX;
 		timer0_millis++;
 	}	
 	timer0_overflow_count++;
@@ -36,46 +54,11 @@ unsigned long micros() {
 	uint8_t t = TCNT0; // считать содержимое счетного регистра
 	if ((TIFR0 & _BV(TOV0)) && (t < 255)) //инкремент по переполнению
 	m++;
-	sei(); // продолжить счет
-	return (long)(((m << 8) + t) * 4);  // вернуть микросекунды
-}
+	sei(); // продолжить счет	
+	return (long)(((m << 8) + t) * MICROS_MULT);  // вернуть микросекунды
 
-/*
-void delayMicroseconds(unsigned int us)
-{
-	us *= 4; //1us = 4 цикла
-	__asm__ volatile 
-		  (	
-			"1: sbiw %0,1" "\n\t" //; вычесть из регистра значение N
-			"brne 1b"				
-			: "=w" (us)
-			: "0" (us)
-		  );
+	// return ((m << 8) + t) * (64 / clockCyclesPerMicrosecond());		// default
 }
-
-void delay(unsigned long ms)
-{
-	while(ms)
-	{
-		delayMicroseconds(999);
-		ms--;
-	}
-}
-*/
-
-/*
-#include <util/delay.h>
-void delay(unsigned long ms)
-{
-	_delay_ms(ms);
-}
-
-void delayMicroseconds(unsigned int us)
-{
-	_delay_us(us);
-}
-*/
-
 
 void delay(unsigned long ms)  
 {
@@ -90,13 +73,16 @@ void delay(unsigned long ms)
 	}
 }
 
-
 void delayMicroseconds(unsigned int us) // работает на счете тиков 
 {
 #if F_CPU >= 16000000L
 	if (us <= 1) return; //  = 3 cycles, (4 when true)
 	us <<= 2; // x4 us, = 4 cycles
-	us -= 5; 
+	us -= 5;
+#elif F_CPU >= 8000000L
+	if (us <= 2) return; //  = 3 cycles, (4 when true)
+	us <<= 1; //x2 us, = 2 cycles
+	us -= 4; // = 2 cycles
 #endif
 	// busy wait
 	__asm__ __volatile__ (
@@ -105,7 +91,6 @@ void delayMicroseconds(unsigned int us) // работает на счете ти
 	);
 	// return = 4 cycles
 }
-
 
 void init() // функция инициализации
 {
