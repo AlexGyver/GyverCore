@@ -29,7 +29,7 @@
 
 Функция         | Arduino   | GyverCore | Быстрее в 
 ----------------|-----------|-----------|----------
-millis			| 1.00 us	| 1.06 us	| -
+millis			| 1.06 us	| 1.00 us	| -
 micros			| 1.19 us	| 1.13 us	| -
 pinMode         | 2.90 us   | 0.57 us   | 5.09      
 digitalWrite    | 2.90 us   | 0.57 us   | 5.09      
