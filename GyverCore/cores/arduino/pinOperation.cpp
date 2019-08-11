@@ -4,7 +4,7 @@
 #define ARDUINO_MAIN
 #include "Arduino.h"
 #include <avr/io.h>
-
+uint8_t a_ref = DEFAULT;  // глобальная переменная для хранения опорного напряжения АЦП
 // ============= DIGITAL =============
 
 void pinMode(uint8_t pin, uint8_t mode)
@@ -122,27 +122,18 @@ void analogPrescaler (uint8_t prescl) {
 
 void analogReference(uint8_t mode)
 {
-	switch (mode) {
-	case 0: //ext
-		ADMUX &= ~ ((1 << REFS1) | (1 << REFS0));
-		break;
-	case 1: //def
-		ADMUX &= ~ (1 << REFS1);
-		ADMUX |= (1 << REFS0);
-		break;
-	case 28: // interal
-		ADMUX |= ((1 << REFS1) | (1 << REFS0));
-		break;
-	}
+a_ref  = mode; // изменения будут приняты в силу при следующем analogRead() / analogStartConvert()
 }
 
 int analogRead(uint8_t pin)
-{
-	cli();
-	pin = pin - 14;
-	ADMUX &= ~((1 << MUX3) | (1 << MUX2) | (1 << MUX1) | (1 << MUX0)); // обнуляем мультиплексор
-	ADMUX = ADMUX | pin; // задвигаем номер входа
-	sei();
+{    
+    if(a_ref == INTERNAL) a_ref = 3; // для удобства задвигания 
+    uint8_t oldSREG = SREG; // запомнинаем были ли включены прерывания
+	cli();//выключаем прерывания
+	pin = (pin < 14) ? (pin) : (pin - 14);		// совместимость между A0, A1.. A7 и 0, 1.. 7
+	ADMUX = 0; // обнуляем опорное и мультиплексор 
+	ADMUX = (a_ref << 6) | pin; // задвигаем опорное и номер входа
+	SREG = oldSREG; // если прерывания не были включены - не включаем и наоборот
 	if (pin == 8 || pin == 14) delay(2); // Wait for Vref to settle для VCC и термометра
 	ADCSRA |= (1 << ADSC); // начинаем преобразование
 	while (ADCSRA & (1 << ADSC)); // ждем окончания
@@ -150,11 +141,14 @@ int analogRead(uint8_t pin)
 }
 
 void analogStartConvert(byte pin) {
-	cli();
-	pin = pin - 14;
-	ADMUX &= ~((1 << MUX3) | (1 << MUX2) | (1 << MUX1) | (1 << MUX0)); // обнуляем мультиплексор
-	ADMUX = ADMUX | pin; // задвигаем номер входа
-	sei();
+	 if(a_ref == INTERNAL) a_ref = 3; // для удобства задвигания 
+    uint8_t oldSREG = SREG; // запомнинаем были ли включены прерывания
+	cli();//выключаем прерывания
+	pin = (pin < 14) ? (pin) : (pin - 14);		// совместимость между A0, A1.. A7 и 0, 1.. 7
+	ADMUX = 0; // обнуляем опорное и мультиплексор 
+	ADMUX = (a_ref << 6) | pin; // задвигаем опорное и номер входа
+	SREG = oldSREG; // если прерывания не были включены - не включаем и наоборот
+	if (pin == 8 || pin == 14) delay(2); // Wait for Vref to settle для VCC и термометра
 	ADCSRA |= (1 << ADSC); // начинаем преобразование
 }
 
