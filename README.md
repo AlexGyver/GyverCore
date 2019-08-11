@@ -36,7 +36,7 @@ digitalWrite    | 2.90 us   | 0.57 us   | 5.09
 digitalRead     | 2.45 us   | 0.50 us   | 4.90      
 analogWrite     | 4.15 us   | 1.13 us   | 3.67      
 analogRead      | 112.01 us | 5.41 us   | 20.70     
-analogReference | 0.00 us   | 0.69 us   | 0.00      
+analogReference | 0.00 us   | 0.00 us   | -    
 attachInterrupt | 1.20 us   | 1.18 us   | 1.02      
 detachInterrupt | 0.82 us   | 0.57 us   | 1.44    
 tone			| 5.63 us   | 2.40 us   | 2.3     
@@ -52,7 +52,7 @@ digitalWrite    | 200     | 24        | 176
 digitalRead     | 190     | 24        | 166            
 analogWrite     | 406     | 48        | 358            
 analogRead      | 32      | 72        | -40            
-analogReference | 0       | 32        | -32            
+analogReference | 0       | 22        | -22            
 attachInterrupt | 212     | 180       | 32             
 detachInterrupt | 198     | 150       | 48         
 tone      		| 1410    | 740       | 670       
@@ -138,3 +138,6 @@ parseFloat      | 1070    | 246       | 824
 	- Вовзращены ещё некоторые стандартные костыли, но на вес и эффективность ядра они не влияют
 - 1.4.0
 	- Восстановлена совместимость между номерами пинов для analogRead (A-пины и цифры)
+- 1.5.0
+	- Облегчён analogRead
+	- Чуть исправлена инициализация watchdog
