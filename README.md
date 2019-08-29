@@ -20,10 +20,12 @@
 - Выбери в **CPU & BOOT** нужный вариант платы (168/328) и загрузчика (optiBoot, old bootloader, without bootloader)
 - Выбери частоту (8 MHz / 16 MHz)
 - Готово!
-- *Примечание*: файлы ядра находятся по пути _C:\Users\Username\AppData\Local\Arduino15\packages\GyverCore\hardware\avr\1.6.0\_
+- *Примечание*: файлы ядра находятся по пути 
+_C:\Users\Username\AppData\Local\Arduino15\packages\GyverCore\hardware\avr\1.6.0\_
 
 ## Ручная установка
-- Файлы из папки GyverCore в этом репозитории положить по пути _C:\Users\Username\AppData\Local\Arduino15\packages\GyverCore\hardware\avr\1.6.0\_
+- Файлы из папки GyverCore в этом репозитории положить по пути 
+_C:\Users\Username\AppData\Local\Arduino15\packages\GyverCore\hardware\avr\1.6.0\_
 
 ## Изменения
 ### Облегчено и ускорено
