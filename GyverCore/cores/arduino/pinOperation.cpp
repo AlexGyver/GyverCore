@@ -23,7 +23,7 @@ void pinMode(uint8_t pin, uint8_t mode)
 	case 2: // in_pullup
 		if (pin < 8) {
 			bitWrite(DDRD, pin, 0);  // настраиваем как вх
-			bitWrite(PORTD, pin, 0); // вкл подтяжку
+			bitWrite(PORTD, pin, 1); // вкл подтяжку
 		}
 		else if (pin < 14) {
 			bitWrite(DDRB, (pin - 8), 0);

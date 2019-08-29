@@ -22,6 +22,13 @@
 #define FRACT_MAX	125
 #define MICROS_MULT	8
 
+#elif F_CPU >= 1000000L
+
+#define MILLIS_INC	16
+#define FRACT_INC	48
+#define FRACT_MAX	125
+#define MICROS_MULT	64
+
 #endif
 
 volatile unsigned long timer0_overflow_count = 0;
@@ -83,6 +90,11 @@ void delayMicroseconds(unsigned int us) // работает на счете ти
 	if (us <= 2) return; //  = 3 cycles, (4 when true)
 	us <<= 1; //x2 us, = 2 cycles
 	us -= 4; // = 2 cycles
+#elif F_CPU >= 1000000L
+	if (us <= 16) return; //= 3 cycles, (4 when true)
+	if (us <= 25) return; //= 3 cycles, (4 when true)
+	us -= 22; // = 2 cycles
+	us >>= 2; // us div 4, = 4 cycles
 #endif
 	// busy wait
 	__asm__ __volatile__ (
