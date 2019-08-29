@@ -1,5 +1,4 @@
 ﻿#include "Arduino.h"
-#include "timeControl.h"
 /* функции времени и инициализация таймеров , АЦП*/
 /*
 #define MICROSECONDS_PER_TIMER0_OVERFLOW (clockCyclesToMicroseconds(64 * 256))	// 1024 на 16 МГц / 2048 на 8 МГц

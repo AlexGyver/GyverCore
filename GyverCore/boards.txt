@@ -22,10 +22,10 @@ nano.build.core=arduino
 ## timer0 OVF ON/OFF
 ## --------------------------
 nano.menu.timers.yes_millis=with millis
-nano.menu.timers.yes_millis.build.variant=yesmillis
+nano.menu.timers.yes_millis.build.extra_flags=-DMILLIS_TMRS
 
 nano.menu.timers.no_millis=without millis
-nano.menu.timers.no_millis.build.variant=nomillis
+nano.menu.timers.no_millis.build.extra_flags=
 
 ## Clock
 ## --------------------------
