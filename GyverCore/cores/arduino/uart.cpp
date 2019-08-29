@@ -1,58 +1,6 @@
-﻿#include "uart.h"
+﻿#include "Arduino.h"
 /* Реализация облегченного Serial от AlexGyver & Egor 'Nich1con' Zaharov*/
 
-// ===== INIT =====
-void uartBegin(uint32_t baudrate){  		// инициализация uart
-	uint16_t speed = ((F_CPU / 8) / baudrate) - 1;  // расчет baudrate
-	UBRR0H = highByte(speed); 				// установка baudrate
-	UBRR0L = lowByte(speed);
-	UCSR0A = (1 << U2X0); 					// вкл удвоенную скорость
-	UCSR0B = ((1<<TXEN0) | (1<<RXEN0) | (1<<RXCIE0)); // вкл uart
-	UCSR0C = ((1<<UCSZ01) | (1<<UCSZ00)); 	// настраиваем формат данных
-}
-void uartBegin(void) { // вызов uartBegin без параметра настроит скорость 9600
-	uartBegin(9600);
-}
-
-void uartEnd(){ // откл uart
-	UCSR0B = 0;
-}
-
-// ===== READ =====
-volatile char _UART_RX_BUFFER[64];
-volatile int8_t _UART_RX_COUNTER;
-ISR(USART_RX_vect) { // чекаем твои байты по прерыванию
-	_UART_RX_BUFFER[_UART_RX_COUNTER] = UDR0; // пишем в массив "буфер"
-	_UART_RX_COUNTER++; 
-}
-
-char uartRead() {  // чтение данных из буфера
-	char thisChar = _UART_RX_BUFFER[0];
-	for (byte i = 0; i < _UART_RX_COUNTER; i++) _UART_RX_BUFFER[i] = _UART_RX_BUFFER[i + 1];
-	if (--_UART_RX_COUNTER < 0) _UART_RX_COUNTER = 0;
-	return thisChar;
-}
-
-boolean uartAvailable() { // проверка доступности данных в буфере
-	return _UART_RX_COUNTER;
-}
-/* Дальше он писал сам, там жесть полная */
-char uartPeek() { 
-	return _UART_RX_BUFFER[0];
-}
-
-
-void uartClear() { 
-	_UART_RX_COUNTER = 0;
-}
-
-/*
-byte uartRead(){
-	if (UCSR0A & (1<<RXC0))
-	{
-		return UDR0;
-	} else return false; 
-}*/
 uint32_t _UART_TIMEOUT = 100;
 void uartSetTimeout(int timeout) {
 	_UART_TIMEOUT = timeout;
@@ -166,11 +114,6 @@ String uartReadString() {
 
 // ===== WRITE =====
 
-void uartWrite(byte data){	
-	while (!(UCSR0A & (1<<UDRE0)));
-	UDR0 = data;
-}
-
 void uartPrintln(void) {
 	uartWrite('\r');
 	uartWrite('\n');
@@ -192,12 +135,9 @@ void uartPrintln(uint32_t data)	{printHelper( (uint32_t) data); uartPrintln();}
 
 
 void printHelper(int32_t data) {
-	if (data < 0) {
-		uartWrite(45);
-		data = -data;
-	}
 	printBytes(data);
 }
+
 void printHelper(uint32_t data) {
 	if (data < 0) {
 		uartWrite(45);

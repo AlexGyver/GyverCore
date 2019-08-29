@@ -6,14 +6,13 @@
 #include "Arduino.h"
 #include <avr/io.h>
 
-void uartBegin(void);
-void uartBegin(uint32_t baudrate);
-void uartEnd();
-
-boolean uartAvailable();
-char uartRead();
-char uartPeek();
-void uartClear();
+#define uartBegin Serial.begin
+#define uartEnd Serial.end
+#define uartAvailable Serial.available
+#define uartRead Serial.read
+#define uartPeek Serial.peek
+#define uartWrite Serial.write
+#define uartClear() do{}while(0)
 
 void uartSetTimeout(int timeout);
 int32_t uartParseInt();
@@ -21,7 +20,6 @@ float uartParseFloat();
 String uartReadString();
 boolean uartParsePacket(int *intArray);
 
-void uartWrite(byte data);
 void uartPrintln(void);
 
 void uartPrint(int8_t data);
