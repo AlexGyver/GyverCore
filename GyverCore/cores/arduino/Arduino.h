@@ -10,6 +10,7 @@
 #include <avr/pgmspace.h>
 #include <avr/io.h>
 #include <avr/interrupt.h>
+#include <util/delay.h>
 
 #ifdef __cplusplus
 extern "C"{
@@ -121,8 +122,11 @@ void analogWrite(uint8_t pin, int val);
 
 unsigned long millis(void);
 unsigned long micros(void);
-void delay(unsigned long);
-void delayMicroseconds(unsigned int us);
+
+/* Эти функции доступны по умолчанию и не исмользуют millis или прерывания */
+#define delay(x) (_delay_ms((x)))
+#define delayMicroseconds(x) (_delay_us((x)))
+
 unsigned long pulseIn(uint8_t pin, uint8_t state, unsigned long timeout);
 unsigned long pulseInLong(uint8_t pin, uint8_t state, unsigned long timeout);
 

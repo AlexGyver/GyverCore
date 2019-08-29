@@ -59,6 +59,7 @@ unsigned long micros() {
 	// return ((m << 8) + t) * (64 / clockCyclesPerMicrosecond());		// default
 }
 
+/*
 void delay(unsigned long ms)  
 {
 	uint32_t start = micros(); // запомнили время старта
@@ -90,6 +91,7 @@ void delayMicroseconds(unsigned int us) // работает на счете ти
 	);
 	// return = 4 cycles
 }
+*/
 
 void init() // функция инициализации
 {
