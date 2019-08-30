@@ -129,8 +129,8 @@ nano.menu.bod.bod_4_3.bootloader.extended_fuses=0xFC
 ## INIT ##
 menu.init=Initialization
 
-nano.menu.init.light_init=light (beta)
-nano.menu.init.light_init.build.extra_flags=-D_GYVERCORE_LIGHT_INIT
 nano.menu.init.default=default 
 nano.menu.init.default.build.extra_flags=-D_GYVERCORE_DEF_INIT
+nano.menu.init.light_init=light (beta)
+nano.menu.init.light_init.build.extra_flags=-D_GYVERCORE_LIGHT_INIT
 nano.menu.init.no_init=disable
