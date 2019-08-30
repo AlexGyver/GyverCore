@@ -1,58 +1,65 @@
 ﻿#include "uart.h"
 /* Реализация облегченного Serial от AlexGyver & Egor 'Nich1con' Zaharov*/
 
+#define UART_RX_BUFFER_SIZE 64
+volatile char _UART_RX_BUFFER[UART_RX_BUFFER_SIZE];
+volatile uint8_t _UART_RX_BUFFER_HEAD;
+volatile uint8_t _UART_RX_BUFFER_TAIL;
+
 // ===== INIT =====
-void uartBegin(uint32_t baudrate){  		// инициализация uart
-	uint16_t speed = ((F_CPU / 8) / baudrate) - 1;  // расчет baudrate
-	UBRR0H = highByte(speed); 				// установка baudrate
+void uartBegin(uint32_t baudrate){
+	uint16_t speed = (2000000/baudrate)-1;
+	UBRR0H = highByte(speed);
 	UBRR0L = lowByte(speed);
-	UCSR0A = (1 << U2X0); 					// вкл удвоенную скорость
-	UCSR0B = ((1<<TXEN0) | (1<<RXEN0) | (1<<RXCIE0)); // вкл uart
-	UCSR0C = ((1<<UCSZ01) | (1<<UCSZ00)); 	// настраиваем формат данных
+	UCSR0A = (1 << U2X0);
+	UCSR0B = ((1<<TXEN0) | (1<<RXEN0) | (1<<RXCIE0));
+	UCSR0C = ((1<<UCSZ01) | (1<<UCSZ00));
+	_UART_RX_BUFFER_HEAD = _UART_RX_BUFFER_TAIL = 0;
 }
-void uartBegin(void) { // вызов uartBegin без параметра настроит скорость 9600
+void uartBegin(void) {
 	uartBegin(9600);
 }
 
-void uartEnd(){ // откл uart
+void uartEnd(){
 	UCSR0B = 0;
 }
 
 // ===== READ =====
-volatile char _UART_RX_BUFFER[64];
-volatile int8_t _UART_RX_COUNTER;
-ISR(USART_RX_vect) { // чекаем твои байты по прерыванию
-	_UART_RX_BUFFER[_UART_RX_COUNTER] = UDR0; // пишем в массив "буфер"
-	_UART_RX_COUNTER++; 
+ISR(USART_RX_vect) {
+	if (bit_is_set(UCSR0A, UPE0)) UDR0; // Не сохранять новые данные если parity error
+	else {
+		unsigned char c = UDR0;
+		uint8_t i = (unsigned int)(_UART_RX_BUFFER_HEAD + 1) % UART_RX_BUFFER_SIZE;
+		// Не сохранять новые данные если нет места
+		if (i != _UART_RX_BUFFER_TAIL) {
+			_UART_RX_BUFFER[_UART_RX_BUFFER_HEAD] = c;
+			_UART_RX_BUFFER_HEAD = i;
+		}
+	}
 }
 
-char uartRead() {  // чтение данных из буфера
-	char thisChar = _UART_RX_BUFFER[0];
-	for (byte i = 0; i < _UART_RX_COUNTER; i++) _UART_RX_BUFFER[i] = _UART_RX_BUFFER[i + 1];
-	if (--_UART_RX_COUNTER < 0) _UART_RX_COUNTER = 0;
-	return thisChar;
+char uartRead() {
+	if (_UART_RX_BUFFER_HEAD == _UART_RX_BUFFER_TAIL) return -1;
+	unsigned char c = _UART_RX_BUFFER[_UART_RX_BUFFER_TAIL];
+	_UART_RX_BUFFER_TAIL = (_UART_RX_BUFFER_TAIL + 1) % UART_RX_BUFFER_SIZE;
+	return c;
 }
 
-boolean uartAvailable() { // проверка доступности данных в буфере
-	return _UART_RX_COUNTER;
-}
-/* Дальше он писал сам, там жесть полная */
-char uartPeek() { 
-	return _UART_RX_BUFFER[0];
+char uartPeek() {
+	//return _UART_RX_BUFFER[0];
+	return _UART_RX_BUFFER_HEAD != _UART_RX_BUFFER_TAIL? _UART_RX_BUFFER[_UART_RX_BUFFER_TAIL]: -1;
 }
 
-
-void uartClear() { 
-	_UART_RX_COUNTER = 0;
+boolean uartAvailable() {
+	return ((unsigned int)(UART_RX_BUFFER_SIZE + _UART_RX_BUFFER_HEAD - _UART_RX_BUFFER_TAIL)) % UART_RX_BUFFER_SIZE;
 }
 
-/*
-byte uartRead(){
-	if (UCSR0A & (1<<RXC0))
-	{
-		return UDR0;
-	} else return false; 
-}*/
+boolean uartAvailableForWrite() {return 1;}
+
+void uartClear() {
+	_UART_RX_BUFFER_HEAD = _UART_RX_BUFFER_TAIL = 0;
+}
+
 uint32_t _UART_TIMEOUT = 100;
 void uartSetTimeout(int timeout) {
 	_UART_TIMEOUT = timeout;

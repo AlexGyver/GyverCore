@@ -2,132 +2,135 @@
 ## почему у оптибута неправильно стоят фьюзы? https://github.com/arduino/ArduinoCore-avr/issues/10
 ## optiboot v4
 
+###################################
+## GyverCore on 328 based boards ##
+###################################
+## BOARD ##
+nano.name=ATmega328 based
+
+nano.upload.tool=avrdude
+nano.upload.protocol=arduino
+nano.upload.maximum_data_size=2048
+nano.bootloader.tool=avrdude
+nano.bootloader.unlock_bits=0x3F
+nano.bootloader.lock_bits=0x0F
+# !RSTDISBL !DWEN SPIEN !WDTON
+nano.bootloader.high_fuses=0b1101{fuses.EESAVE}{fuses.BOOT}
+nano.bootloader.low_fuses=0b{fuses.CKDIV8}{fuses.CKOUT}{fuses.CKSEL}
+nano.bootloader.file={bootloader.dir}/{bootloader.suffix}.hex
+nano.build.board=AVR_NANO
+nano.build.core=arduino
+nano.build.mcu=atmega328p
+
+
+## CLOCK ##
 menu.clock=Clock
+
+nano.menu.clock.external_16=external 16 MHz
+nano.menu.clock.external_16.fuses.CKDIV8=1
+nano.menu.clock.external_16.fuses.CKSEL=111111
+nano.menu.clock.external_16.build.f_cpu=16000000L
+nano.menu.clock.external_16.bootloader.suffix=atmega328
+nano.menu.clock.external_16.upload.speed={speeds.US16MHZ}
+
+nano.menu.clock.external_8=external 8 MHz
+nano.menu.clock.external_8.fuses.CKDIV8=1
+nano.menu.clock.external_8.fuses.CKSEL=111111
+nano.menu.clock.external_8.build.f_cpu=8000000L
+nano.menu.clock.external_8.bootloader.suffix=atmega328
+nano.menu.clock.external_8.upload.speed={speeds.US8MHZ}
+
+nano.menu.clock.internal_8=internal 8 MHz
+nano.menu.clock.internal_8.fuses.CKDIV8=1
+nano.menu.clock.internal_8.fuses.CKSEL=010010
+nano.menu.clock.internal_8.build.f_cpu=8000000L
+nano.menu.clock.internal_8.bootloader.suffix=atmega328
+nano.menu.clock.internal_8.upload.speed={speeds.US8MHZ}
+
+nano.menu.clock.internal_1=internal 1 MHz
+nano.menu.clock.internal_1.fuses.CKDIV8=0
+nano.menu.clock.internal_1.fuses.CKSEL=010010
+nano.menu.clock.internal_1.build.f_cpu=1000000L
+nano.menu.clock.internal_1.bootloader.suffix=atmega328
+nano.menu.clock.internal_1.upload.speed={speeds.US1MHZ}
+
+nano.menu.clock.internal_128=internal 128 kHz
+nano.menu.clock.internal_128.fuses.CKDIV8=1
+nano.menu.clock.internal_128.fuses.CKSEL=010011
+nano.menu.clock.internal_128.build.f_cpu=128000L
+nano.menu.clock.internal_128.bootloader.suffix=emptyBoot
+nano.menu.clock.internal_128.upload.speed=666
+
+## CLOCKOUT
+menu.co=Clock out PB0 (D8)
+
+nano.menu.co.disabled=disable
+nano.menu.co.disabled.fuses.CKOUT=1
+
+nano.menu.co.enabled=enable
+nano.menu.co.enabled.fuses.CKOUT=0
+
+## EESAVE
+menu.es=Save EEPROM
+
+nano.menu.es.enabled=enable
+nano.menu.es.enabled.fuses.EESAVE=0
+
+nano.menu.es.disabled=disable
+nano.menu.es.disabled.fuses.EESAVE=1
+
+
+## BOOT ##
+menu.boot=Bootloader
+
+nano.menu.boot.old=Old bootloader
+nano.menu.boot.old.upload.maximum_size=30720
+nano.menu.boot.old.fuses.BOOT=010
+nano.menu.boot.old.bootloader.dir=atmega
+nano.menu.boot.old.speeds.US16MHZ=57600
+nano.menu.boot.old.speeds.US8MHZ=28800
+nano.menu.boot.old.speeds.US1MHZ=3600
+
+nano.menu.boot.optiboot=OptiBoot
+nano.menu.boot.optiboot.upload.maximum_size=30720
+nano.menu.boot.optiboot.fuses.BOOT=010
+nano.menu.boot.optiboot.bootloader.dir=optiboot
+nano.menu.boot.optiboot.speeds.US16MHZ=115200
+nano.menu.boot.optiboot.speeds.US8MHZ=57600
+nano.menu.boot.optiboot.speeds.US1MHZ=7200
+
+nano.menu.boot.no=Without bootloader
+nano.menu.boot.no.upload.maximum_size=32768
+nano.menu.boot.no.fuses.BOOT=111
+nano.menu.boot.no.bootloader.dir=empty
+nano.menu.boot.no.speeds.US16MHZ=666
+nano.menu.boot.no.speeds.US8MHZ=666
+nano.menu.boot.no.speeds.US1MHZ=666
+
+## TIMER ##
 menu.timers=System timer
 
-########################
-## 328 old bootloader ##
-########################
-nanoOld.name=ATmega328 (old bootloader)
-nanoOld.upload.tool=avrdude
-nanoOld.upload.protocol=arduino
-nanoOld.bootloader.tool=avrdude
-nanoOld.bootloader.unlock_bits=0x3F
-nanoOld.bootloader.lock_bits=0x0F
-nanoOld.build.board=AVR_NANO
-nanoOld.build.core=arduino
+nano.menu.timers.yes_millis=enable
+nano.menu.timers.no_millis=disable
+nano.menu.timers.no_millis.build.extra_flags=-D_GYVERCORE_NOMILLIS
 
-nanoOld.upload.maximum_size=30720
-nanoOld.upload.maximum_data_size=2048
-nanoOld.upload.speed=57600
-nanoOld.bootloader.high_fuses=0xDA
-nanoOld.bootloader.extended_fuses=0xFD
-nanoOld.build.mcu=atmega328p
+## BOD ##
+menu.bod=B.O.D.
 
-nanoOld.menu.clock.external_16=External 16 MHz
-nanoOld.menu.clock.external_16.bootloader.low_fuses=0xFF
-nanoOld.menu.clock.external_16.build.f_cpu=16000000L
-nanoOld.menu.clock.external_16.bootloader.file=atmega/ATmegaBOOT_168_atmega328.hex
+nano.menu.bod.disable=disable
+nano.menu.bod.disable.bootloader.extended_fuses=0xFF
+nano.menu.bod.bod_1_8=1.8V
+nano.menu.bod.bod_1_8.bootloader.extended_fuses=0xFE
+nano.menu.bod.bod_2_7=2.7V (default)
+nano.menu.bod.bod_2_7.bootloader.extended_fuses=0xFD
+nano.menu.bod.bod_4_3=4.3V
+nano.menu.bod.bod_4_3.bootloader.extended_fuses=0xFC
 
-nanoOld.menu.clock.external_8=External 8 MHz
-nanoOld.menu.clock.external_8.bootloader.low_fuses=0xFF
-nanoOld.menu.clock.external_8.build.f_cpu=8000000L
-nanoOld.menu.clock.external_8.bootloader.file=atmega/ATmegaBOOT_168_atmega328_pro_8MHz.hex
+## INIT ##
+menu.init=Initialization
 
-nanoOld.menu.clock.internal_8=Internal 8 MHz
-nanoOld.menu.clock.internal_8.bootloader.low_fuses=0xD2
-nanoOld.menu.clock.internal_8.build.f_cpu=8000000L
-nanoOld.menu.clock.internal_8.bootloader.file=atmega/ATmegaBOOT_168_atmega328_pro_8MHz.hex
-
-nanoOld.menu.timers.yes_millis=millis enabled
-nanoOld.menu.timers.yes_millis.build.variant=yesmillis
-nanoOld.menu.timers.no_millis=millis disabled
-nanoOld.menu.timers.no_millis.build.variant=nomillis
-
-
-##################
-## 328 optiBoot ##
-##################
-nanoOpti.name=ATmega328 (optiboot)
-nanoOpti.upload.tool=avrdude
-nanoOpti.upload.protocol=arduino
-nanoOpti.bootloader.tool=avrdude
-nanoOpti.bootloader.unlock_bits=0x3F
-nanoOpti.bootloader.lock_bits=0x0F
-nanoOpti.build.board=AVR_NANO
-nanoOpti.build.core=arduino
-
-nanoOpti.upload.maximum_size=30720
-nanoOpti.upload.maximum_data_size=2048
-nanoOpti.upload.speed=115200
-nanoOpti.bootloader.high_fuses=0xDA
-nanoOpti.bootloader.extended_fuses=0xFD
-nanoOpti.build.mcu=atmega328p
-
-nanoOpti.menu.clock.external_16=External 16 MHz
-nanoOpti.menu.clock.external_16.bootloader.low_fuses=0xFF
-nanoOpti.menu.clock.external_16.build.f_cpu=16000000L
-nanoOpti.menu.clock.external_16.bootloader.file=optiboot/optiboot_atmega328.hex
-
-nanoOpti.menu.clock.external_8=External 8 MHz
-nanoOpti.menu.clock.external_8.bootloader.low_fuses=0xFF
-nanoOpti.menu.clock.external_8.build.f_cpu=8000000L
-nanoOpti.menu.clock.external_8.bootloader.file=optiboot/optiboot_atmega328_pro_8MHz.hex
-
-nanoOpti.menu.clock.internal_8=Internal 8 MHz
-nanoOpti.menu.clock.internal_8.bootloader.low_fuses=0xD2
-nanoOpti.menu.clock.internal_8.build.f_cpu=8000000L
-nanoOpti.menu.clock.internal_8.bootloader.file=optiboot/optiboot_atmega328_pro_8MHz.hex
-
-nanoOpti.menu.timers.yes_millis=millis enabled
-nanoOpti.menu.timers.yes_millis.build.variant=yesmillis
-nanoOpti.menu.timers.no_millis=millis disabled
-nanoOpti.menu.timers.no_millis.build.variant=nomillis
-
-#######################
-## 328 no bootloader ##
-#######################
-nanoWB.name=ATmega328 (without bootloader)
-nanoWB.upload.tool=avrdude
-nanoWB.upload.protocol=arduino
-nanoWB.bootloader.tool=avrdude
-nanoWB.bootloader.unlock_bits=0x3F
-nanoWB.bootloader.lock_bits=0x0F
-nanoWB.build.board=AVR_NANO
-nanoWB.build.core=arduino
-
-nanoWB.upload.maximum_size=32768
-nanoWB.upload.maximum_data_size=2048
-nanoWB.bootloader.high_fuses=0xDF
-nanoWB.bootloader.extended_fuses=0xFD
-nanoWB.build.mcu=atmega328p
-
-nanoWB.menu.clock.external_16=External 16 MHz
-nanoWB.menu.clock.external_16.bootloader.low_fuses=0xFF
-nanoWB.menu.clock.external_16.build.f_cpu=16000000L
-nanoWB.menu.clock.external_16.bootloader.file=atmega/ATmegaBOOT_168_atmega328.hex
-
-nanoWB.menu.clock.external_8=External 8 MHz
-nanoWB.menu.clock.external_8.bootloader.low_fuses=0xFF
-nanoWB.menu.clock.external_8.build.f_cpu=8000000L
-nanoWB.menu.clock.external_8.bootloader.file=atmega/ATmegaBOOT_168_atmega328.hex
-
-nanoWB.menu.clock.internal_8=Internal 8 MHz
-nanoWB.menu.clock.internal_8.bootloader.low_fuses=0xD2
-nanoWB.menu.clock.internal_8.build.f_cpu=8000000L
-nanoWB.menu.clock.internal_8.bootloader.file=atmega/ATmegaBOOT_168_atmega328.hex
-
-nanoWB.menu.clock.internal_1=Internal 1 MHz
-nanoWB.menu.clock.internal_1.bootloader.low_fuses=0x52
-nanoWB.menu.clock.internal_1.build.f_cpu=1000000L
-nanoWB.menu.clock.internal_1.bootloader.file=atmega/ATmegaBOOT_168_atmega328.hex
-
-nanoWB.menu.clock.internal_128=Internal 128 kHz
-nanoWB.menu.clock.internal_128.bootloader.low_fuses=0xD3
-nanoWB.menu.clock.internal_128.build.f_cpu=128000L
-nanoWB.menu.clock.internal_128.bootloader.file=atmega/ATmegaBOOT_168_atmega328.hex
-
-nanoWB.menu.timers.yes_millis=millis enabled
-nanoWB.menu.timers.yes_millis.build.variant=yesmillis
-nanoWB.menu.timers.no_millis=millis disabled
-nanoWB.menu.timers.no_millis.build.variant=nomillis
+nano.menu.init.light_init=light (beta)
+nano.menu.init.light_init.build.extra_flags=-D_GYVERCORE_LIGHT_INIT
+nano.menu.init.default=default 
+nano.menu.init.default.build.extra_flags=-D_GYVERCORE_DEF_INIT
+nano.menu.init.no_init=disable

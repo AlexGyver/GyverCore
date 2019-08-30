@@ -1,6 +1,7 @@
-﻿
-#ifndef Arduino_h
+﻿#ifndef Arduino_h
 #define Arduino_h
+
+#pragma message "GyverCore v1.7.0 inside. Enjoy"
 
 // ===== DEF LIBS =====
 #include <stdlib.h>
@@ -103,6 +104,7 @@ void init(void);
 
 // ===== PIN OPERATION ======
 // new
+void lightInit(void);
 void setPWM_20kHz(byte pin);
 void setPWM_9_10_resolution(boolean resolution); // 0 - 8 бит, 1 - 10 бит
 void setPwmFreqnuency(byte pin, byte freq); //default, 8KHZ, 31KHZ
@@ -119,8 +121,14 @@ int analogRead(uint8_t pin);
 void analogReference(uint8_t mode);
 void analogWrite(uint8_t pin, int val);
 
+#ifndef _GYVERCORE_NOMILLIS
 unsigned long millis(void);
 unsigned long micros(void);
+#else
+#define millis() 0
+#define micros() 0
+#endif
+
 void delay(unsigned long);
 void delayMicroseconds(unsigned int us);
 unsigned long pulseIn(uint8_t pin, uint8_t state, unsigned long timeout);

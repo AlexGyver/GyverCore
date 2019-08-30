@@ -179,7 +179,7 @@ void analogWrite(uint8_t pin, int val)
 		case 3:  // 2B
 			if (!_TMR2_HF_PWM) {
 				TCCR2A |= (1 << COM2B1);
-				OCR2A = val;
+				OCR2B = val;
 			} else {
 				if (val == 0) {
 					bitClear(TCCR2A, COM2B1);					

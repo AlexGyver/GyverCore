@@ -11,6 +11,7 @@ void uartBegin(uint32_t baudrate);
 void uartEnd();
 
 boolean uartAvailable();
+boolean uartAvailableForWrite();
 char uartRead();
 char uartPeek();
 void uartClear();

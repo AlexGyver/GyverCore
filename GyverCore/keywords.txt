@@ -36,7 +36,7 @@ uartParseInt	KEYWORD2
 uartReadString	KEYWORD2
 uartParseFloat	KEYWORD2
 uartParsePacket	KEYWORD2
-
+lightInit	KEYWORD2
 
 ISR	KEYWORD2
 
