@@ -120,6 +120,20 @@
             {"name": "ATmega328 based boards"}
           ],
           "toolsDependencies": []
+        },
+		{
+          "name": "GyverCore",
+          "architecture": "avr",
+          "version": "1.7.1",
+          "category": "Contributed",
+          "url": "https://github.com/AlexGyver/GyverCore/releases/download/GyverCore-1.7.1/GyverCore.zip",
+          "archiveFileName": "GyverCore.zip",
+          "checksum": "MD5:772a85fabaec1353d8510f65e8ee14c4",
+          "size": "115920",
+          "boards": [
+            {"name": "ATmega328 based boards"}
+          ],
+          "toolsDependencies": []
         }
       ],
       "tools": []

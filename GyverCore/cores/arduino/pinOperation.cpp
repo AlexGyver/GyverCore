@@ -88,47 +88,47 @@ void digitalToggle(uint8_t pin){
 }
 // ============= ANALOG =============
 void analogPrescaler (uint8_t prescl) { 
-  cli();
-  switch (prescl) {
-    case 2: 
-      ADCSRA &= ~((1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0));
-      break;
-    case 4: // (defalut)
-      ADCSRA &= ~((1 << ADPS2) | (1 << ADPS0));
-      ADCSRA |= (1 << ADPS1);
-      break;
-    case 8:
-      ADCSRA &= ~ (1 << ADPS2);
-      ADCSRA |= ((1 << ADPS1) | (1 << ADPS0));
-      break;
-    case 16:
-      ADCSRA &= ~((1 << ADPS1) | (1 << ADPS0));
-      ADCSRA |= (1 << ADPS2);
-      break;
-    case 32:
-      ADCSRA &= ~ (1 << ADPS1);
-      ADCSRA |= ((1 << ADPS2) | (1 << ADPS0));
-      break;
-    case 64:
-      ADCSRA &= ~ (1 << ADPS0);
-      ADCSRA |= ((1 << ADPS2) | (1 << ADPS1));
-      break;
-    case 128:
-      ADCSRA |= ((1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0));
-      break;
-  }
-  sei();
+	cli();
+	switch (prescl) {
+	case 2: 
+		ADCSRA &= ~((1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0));
+		break;
+	case 4: // (defalut)
+		ADCSRA &= ~((1 << ADPS2) | (1 << ADPS0));
+		ADCSRA |= (1 << ADPS1);
+		break;
+	case 8:
+		ADCSRA &= ~ (1 << ADPS2);
+		ADCSRA |= ((1 << ADPS1) | (1 << ADPS0));
+		break;
+	case 16:
+		ADCSRA &= ~((1 << ADPS1) | (1 << ADPS0));
+		ADCSRA |= (1 << ADPS2);
+		break;
+	case 32:
+		ADCSRA &= ~ (1 << ADPS1);
+		ADCSRA |= ((1 << ADPS2) | (1 << ADPS0));
+		break;
+	case 64:
+		ADCSRA &= ~ (1 << ADPS0);
+		ADCSRA |= ((1 << ADPS2) | (1 << ADPS1));
+		break;
+	case 128:
+		ADCSRA |= ((1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0));
+		break;
+	}
+	sei();
 }
 
 void analogReference(uint8_t mode)
 {
-a_ref  = mode; // изменения будут приняты в силу при следующем analogRead() / analogStartConvert()
+	a_ref  = mode; // изменения будут приняты в силу при следующем analogRead() / analogStartConvert()
 }
 
 int analogRead(uint8_t pin)
 {    
-    if(a_ref == INTERNAL) a_ref = 3; // для удобства задвигания 
-    uint8_t oldSREG = SREG; // запомнинаем были ли включены прерывания
+	if(a_ref == INTERNAL) a_ref = 3; // для удобства задвигания 
+	uint8_t oldSREG = SREG; // запомнинаем были ли включены прерывания
 	cli();//выключаем прерывания
 	pin = (pin < 14) ? (pin) : (pin - 14);		// совместимость между A0, A1.. A7 и 0, 1.. 7
 	ADMUX = 0; // обнуляем опорное и мультиплексор 
@@ -141,8 +141,8 @@ int analogRead(uint8_t pin)
 }
 
 void analogStartConvert(byte pin) {
-	 if(a_ref == INTERNAL) a_ref = 3; // для удобства задвигания 
-    uint8_t oldSREG = SREG; // запомнинаем были ли включены прерывания
+	if(a_ref == INTERNAL) a_ref = 3; // для удобства задвигания 
+	uint8_t oldSREG = SREG; // запомнинаем были ли включены прерывания
 	cli();//выключаем прерывания
 	pin = (pin < 14) ? (pin) : (pin - 14);		// совместимость между A0, A1.. A7 и 0, 1.. 7
 	ADMUX = 0; // обнуляем опорное и мультиплексор 

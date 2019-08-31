@@ -45,6 +45,14 @@ extern "C"{
 #define DEFAULT 1
 #define EXTERNAL 0
 #define THERMOMETR 22
+
+#define PWM_8BIT 0
+#define PWM_10BIT 1
+
+#define PWM_DEFAULT 0
+#define PWM_8KHZ 1
+#define PWM_31KHZ 2
+
 // ===== MATH MACRO =====
 #ifdef abs
 #undef abs

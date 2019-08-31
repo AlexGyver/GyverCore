@@ -1,4 +1,5 @@
 ﻿/* Облегченный Serial */
+// Версия 1.2
 
 #ifndef uart_h
 #define uart_h
@@ -6,11 +7,10 @@
 #include "Arduino.h"
 #include <avr/io.h>
 
-void uartBegin(void);
-void uartBegin(uint32_t baudrate);
+void uartBegin(uint32_t baudrate = 9600);
 void uartEnd();
 
-boolean uartAvailable();
+uint8_t uartAvailable();
 boolean uartAvailableForWrite();
 char uartRead();
 char uartPeek();
