@@ -7,7 +7,7 @@
 #define FRACT_MAX (1000 >> 3)													// 125 	на 16 МГц / 125 на 8 МГц
 */
 
-#ifndef _GYVERCORE_NOMILLIS
+#if defined (_GYVERCORE_NOMILLIS)
 #include <util/delay.h>
 #endif
 
@@ -80,7 +80,7 @@ unsigned long micros() {
 #endif
 
 void delay(unsigned long ms) {
-#ifndef _GYVERCORE_NOMILLIS
+#if defined (_GYVERCORE_NOMILLIS)
 	_delay_ms(ms);
 #else
 	
@@ -96,7 +96,7 @@ void delay(unsigned long ms) {
 }
 
 void delayMicroseconds(unsigned int us) {
-#ifndef _GYVERCORE_NOMILLIS
+#if defined (_GYVERCORE_NOMILLIS)
 	_delay_us(us);
 #else
 	

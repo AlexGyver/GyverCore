@@ -1,4 +1,6 @@
 /* Главный цикл программы */
+
+#pragma message "GyverCore v1.7.2 inside. Enjoy"
 #include <Arduino.h>
 int main(void)
 {   WDTCSR |= (1<<WDCE); // даем разрешение отключить ватчдог
