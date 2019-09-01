@@ -44,13 +44,6 @@ extern "C"{
 #define EXTERNAL 0
 #define THERMOMETR 22
 
-#define PWM_8BIT 0
-#define PWM_10BIT 1
-
-#define PWM_DEFAULT 0
-#define PWM_8KHZ 1
-#define PWM_31KHZ 2
-
 // ===== MATH MACRO =====
 #ifdef abs
 #undef abs
@@ -111,10 +104,6 @@ void init(void);
 // ===== PIN OPERATION ======
 // new
 void lightInit(void);
-void setPWM_20kHz(byte pin);
-void setPWM_9_10_resolution(boolean resolution); // 0 - 8 бит, 1 - 10 бит
-void setPwmFreqnuency(byte pin, byte freq); //default, 8KHZ, 31KHZ
-void setPWM_default(byte pin);
 void analogStartConvert(byte pin);
 void analogPrescaler(uint8_t prescl);
 int analogGet();

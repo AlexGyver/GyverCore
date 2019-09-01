@@ -5,6 +5,9 @@
 ###################################
 ## GyverCore on 328 based boards ##
 ###################################
+
+nano.build.extra_flags={extra_flags.timer} {extra_flags.init}
+
 ## BOARD ##
 nano.name=ATmega328 based
 
@@ -99,6 +102,14 @@ nano.menu.boot.optiboot.speeds.US16MHZ=115200
 nano.menu.boot.optiboot.speeds.US8MHZ=57600
 nano.menu.boot.optiboot.speeds.US1MHZ=7200
 
+nano.menu.boot.optiboot_v8=OptiBoot v8
+nano.menu.boot.optiboot_v8.upload.maximum_size=32256
+nano.menu.boot.optiboot_v8.fuses.BOOT=110
+nano.menu.boot.optiboot_v8.bootloader.dir=optiboot_v8
+nano.menu.boot.optiboot_v8.speeds.US16MHZ=115200
+nano.menu.boot.optiboot_v8.speeds.US8MHZ=57600
+nano.menu.boot.optiboot_v8.speeds.US1MHZ=7200
+
 nano.menu.boot.no=Without bootloader
 nano.menu.boot.no.upload.maximum_size=32768
 nano.menu.boot.no.fuses.BOOT=111
@@ -111,6 +122,7 @@ nano.menu.boot.no.speeds.US1MHZ=666
 menu.timers=System timer
 
 nano.menu.timers.yes_millis=enable
+nano.menu.timers.yes_millis.extra_flags.timer=
 nano.menu.timers.no_millis=disable
 nano.menu.timers.no_millis.build.extra_flags=-D_GYVERCORE_NOMILLIS
 
@@ -129,8 +141,7 @@ nano.menu.bod.bod_4_3.bootloader.extended_fuses=0xFC
 ## INIT ##
 menu.init=Initialization
 
-nano.menu.init.default=default 
-nano.menu.init.default.build.extra_flags=-D_GYVERCORE_DEF_INIT
-nano.menu.init.light_init=light (beta)
-nano.menu.init.light_init.build.extra_flags=-D_GYVERCORE_LIGHT_INIT
+nano.menu.init.enable=enable 
+nano.menu.init.enable.extra_flags.init=
 nano.menu.init.no_init=disable
+nano.menu.init.no_init.extra_flags.init=-D_GYVERCORE_NOINIT
