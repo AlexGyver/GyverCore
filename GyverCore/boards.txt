@@ -124,7 +124,7 @@ menu.timers=System timer
 nano.menu.timers.yes_millis=enable
 nano.menu.timers.yes_millis.extra_flags.timer=
 nano.menu.timers.no_millis=disable
-nano.menu.timers.no_millis.build.extra_flags=-D_GYVERCORE_NOMILLIS
+nano.menu.timers.no_millis.build.extra_flags.timer=-D_GYVERCORE_NOMILLIS
 
 ## BOD ##
 menu.bod=B.O.D.

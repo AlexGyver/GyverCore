@@ -8,7 +8,8 @@ uint8_t a_ref = DEFAULT;  // глобальная переменная для х
 // ============= DIGITAL =============
 
 void pinMode(uint8_t pin, uint8_t mode)
-{
+{   uint8_t oldSREG = SREG; // запомнинаем были ли включены прерывания
+	cli();//выключаем прерывания
 	switch (mode) {
 	case 0: // input
 		if (pin < 8) bitWrite(DDRD, pin, 0);   // расставляем нули в DDRn
@@ -35,9 +36,12 @@ void pinMode(uint8_t pin, uint8_t mode)
 		}
 		break;
 	}
+	SREG = oldSREG; // если прерывания не были включены - не включаем и наоборот
 }
 
 void digitalWrite(uint8_t pin, uint8_t x) {
+	uint8_t oldSREG = SREG; // запомнинаем были ли включены прерывания
+	cli();//выключаем прерывания
 	switch (pin) { // откл pwm
 	case 3:  // 2B
 		TCCR2A &= ~(1 << COM2B1);
@@ -61,6 +65,7 @@ void digitalWrite(uint8_t pin, uint8_t x) {
 	if (pin < 8) bitWrite(PORTD, pin, x);
 	else if (pin < 14) bitWrite(PORTB, (pin - 8), x);
 	else if (pin < 20) bitWrite(PORTC, (pin - 14), x);
+	SREG = oldSREG; // если прерывания не были включены - не включаем и наоборот
 }
 
 int digitalRead (uint8_t pin) {
@@ -71,6 +76,8 @@ int digitalRead (uint8_t pin) {
 
 
 void digitalToggle(uint8_t pin){
+	uint8_t oldSREG = SREG; // запомнинаем были ли включены прерывания
+	cli();//выключаем прерывания
 	if (pin < 8) bitToggle(PORTD, pin);
 	else if (pin < 14) bitToggle(PORTB, pin - 8);
 	else if (pin < 20) bitToggle(PORTC, pin - 14);
@@ -85,10 +92,12 @@ void digitalToggle(uint8_t pin){
 		bitWrite(PORTC, (pin - 14), !bitRead(PORTC,(pin-14)));
 	}
 	*/
+	SREG = oldSREG; // если прерывания не были включены - не включаем и наоборот
 }
 // ============= ANALOG =============
 void analogPrescaler (uint8_t prescl) { 
-	cli();
+	uint8_t oldSREG = SREG; // запомнинаем были ли включены прерывания
+	cli();//выключаем прерывания
 	switch (prescl) {
 	case 2: 
 		ADCSRA &= ~((1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0));
@@ -117,7 +126,7 @@ void analogPrescaler (uint8_t prescl) {
 		ADCSRA |= ((1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0));
 		break;
 	}
-	sei();
+	SREG = oldSREG; // если прерывания не были включены - не включаем и наоборот
 }
 
 void analogReference(uint8_t mode)
@@ -138,9 +147,9 @@ void analogStartConvert(byte pin) {
 	pin = (pin < 14) ? (pin) : (pin - 14);		// совместимость между A0, A1.. A7 и 0, 1.. 7
 	ADMUX = 0; // обнуляем опорное и мультиплексор 
 	ADMUX = (a_ref << 6) | pin; // задвигаем опорное и номер входа
-	SREG = oldSREG; // если прерывания не были включены - не включаем и наоборот
 	if (pin == 8 || pin == 14) delay(2); // Wait for Vref to settle для VCC и термометра
 	ADCSRA |= (1 << ADSC); // начинаем преобразование
+	SREG = oldSREG; // если прерывания не были включены - не включаем и наоборот
 }
 
 int analogGet() {
@@ -150,7 +159,8 @@ int analogGet() {
 
 // ============= PWM =============
 void analogWrite(uint8_t pin, int val) {
-	cli();
+	uint8_t oldSREG = SREG; // запомнинаем были ли включены прерывания
+	cli();//выключаем прерывания
 	switch (val) {
 	case 5:
 		bitSet(TCCR0A, COM0B1);
@@ -179,5 +189,5 @@ void analogWrite(uint8_t pin, int val) {
 	default:
 		break;
 	}
-	sei();
+	SREG = oldSREG; // если прерывания не были включены - не включаем и наоборот
 }

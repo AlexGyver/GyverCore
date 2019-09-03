@@ -8,7 +8,7 @@ volatile uint8_t _UART_RX_BUFFER_TAIL;
 
 // ===== INIT =====
 void uartBegin(uint32_t baudrate){
-	uint16_t speed = (F_CPU / (8 * baudrate)) - 1;
+	uint16_t speed = (F_CPU / (8L * baudrate)) - 1;
 	UBRR0H = highByte(speed);
 	UBRR0L = lowByte(speed);
 	UCSR0A = (1 << U2X0);
