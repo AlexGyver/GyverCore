@@ -127,7 +127,7 @@ void analogReference(uint8_t mode)
 int analogRead(uint8_t pin)
 {    
 	analogStartConvert(pin);
-	analogGet();
+	return analogGet();
 }
 
 void analogStartConvert(byte pin) {
