@@ -4,7 +4,7 @@
 #define ARDUINO_MAIN
 #include "Arduino.h"
 #include <avr/io.h>
-uint8_t a_ref = DEFAULT;  // глобальная переменная для хранения опорного напряжения АЦП
+static uint8_t a_ref = DEFAULT;  // глобальная переменная для хранения опорного напряжения АЦП
 // ============= DIGITAL =============
 
 void pinMode(uint8_t pin, uint8_t mode)
@@ -81,21 +81,11 @@ void digitalToggle(uint8_t pin){
 	if (pin < 8) bitToggle(PORTD, pin);
 	else if (pin < 14) bitToggle(PORTB, pin - 8);
 	else if (pin < 20) bitToggle(PORTC, pin - 14);
-	/*
-	if (pin < 8) {
-		bitWrite(PORTD, pin, !bitRead(PORTD,pin));
-	}
-	else if (pin < 14){
-		bitWrite(PORTB, (pin - 8),!bitRead(PORTB,(pin-8)));
-	}
-	else if (pin < 20){ 
-		bitWrite(PORTC, (pin - 14), !bitRead(PORTC,(pin-14)));
-	}
-	*/
+
 	SREG = oldSREG; // если прерывания не были включены - не включаем и наоборот
 }
 // ============= ANALOG =============
-void analogPrescaler (uint8_t prescl) { 
+void analogPrescaler(uint8_t prescl) { 
 	uint8_t oldSREG = SREG; // запомнинаем были ли включены прерывания
 	cli();//выключаем прерывания
 	switch (prescl) {
@@ -131,7 +121,7 @@ void analogPrescaler (uint8_t prescl) {
 
 void analogReference(uint8_t mode)
 {
-	a_ref  = mode; // изменения будут приняты в силу при следующем analogRead() / analogStartConvert()
+	a_ref = mode; // изменения будут приняты в силу при следующем analogRead() / analogStartConvert()
 }
 
 int analogRead(uint8_t pin)
@@ -141,7 +131,7 @@ int analogRead(uint8_t pin)
 }
 
 void analogStartConvert(byte pin) {
-	if(a_ref == INTERNAL) a_ref = 3; // для удобства задвигания 
+	if (a_ref == INTERNAL) a_ref = 3; // для удобства задвигания 
 	uint8_t oldSREG = SREG; // запомнинаем были ли включены прерывания
 	cli();//выключаем прерывания
 	pin = (pin < 14) ? (pin) : (pin - 14);		// совместимость между A0, A1.. A7 и 0, 1.. 7
@@ -159,9 +149,13 @@ int analogGet() {
 
 // ============= PWM =============
 void analogWrite(uint8_t pin, int val) {
-	uint8_t oldSREG = SREG; // запомнинаем были ли включены прерывания
+	if (val == 0) {
+		digitalWrite(pin, 0);
+		return;
+	}
+	uint8_t oldSREG = SREG; // запомнинаем были ли включены прерывания	
 	cli();//выключаем прерывания
-	switch (val) {
+	switch (pin) {
 	case 5:
 		bitSet(TCCR0A, COM0B1);
 		OCR0B = val;

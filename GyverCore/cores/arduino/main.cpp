@@ -1,7 +1,6 @@
 /* Главный цикл программы */
-#pragma message "Это фиксики , помогите !"
 #pragma message "Нас тут заперли, вызовите 911!"
-#pragma message "GyverCore v1.7.3 inside. Enjoy"
+#pragma message "GyverCore v1.8 inside. Enjoy"
 
 #include <Arduino.h>
 int main(void) {   

@@ -48,7 +48,6 @@ void delay(unsigned long ms) {
 #ifdef _GYVERCORE_NOMILLIS
 	_delay_ms(ms);
 #else
-	
 	uint32_t start = micros(); // запомнили время старта
 	while (ms > 0) { // ведем отсчет
 		yield();
