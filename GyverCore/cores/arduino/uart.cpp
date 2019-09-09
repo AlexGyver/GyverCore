@@ -2,9 +2,9 @@
 /* Реализация облегченного Serial от AlexGyver & Egor 'Nich1con' Zaharov*/
 
 #define UART_RX_BUFFER_SIZE 64
-volatile char _UART_RX_BUFFER[UART_RX_BUFFER_SIZE];
-volatile uint8_t _UART_RX_BUFFER_HEAD;
-volatile uint8_t _UART_RX_BUFFER_TAIL;
+static volatile char _UART_RX_BUFFER[UART_RX_BUFFER_SIZE];
+static volatile uint8_t _UART_RX_BUFFER_HEAD;
+static volatile uint8_t _UART_RX_BUFFER_TAIL;
 
 // ===== INIT =====
 void uartBegin(uint32_t baudrate){
@@ -95,7 +95,6 @@ boolean uartParsePacket(int *intArray) {
 				if (uartPeek() == '$') {
 					parseStart = true;
 					uartRead();
-					uartPrintln("start");
 					continue;
 				}
 				if (parseStart) {
@@ -180,35 +179,45 @@ void uartPrintln(void) {
 	uartWrite('\n');
 }
 
-void uartPrint(int8_t data)		{printHelper( (long) data);}
-void uartPrint(uint8_t data)	{printHelper( (long) data);}
-void uartPrint(int16_t data)	{printHelper( (long) data);}
-void uartPrint(uint16_t data)	{printHelper( (long) data);}
-void uartPrint(int32_t data)	{printHelper( (long) data);}
-void uartPrint(uint32_t data)	{printHelper( (uint32_t) data);}
+void uartPrint(int8_t data, byte base)		{printHelper( (long) data, base);}
+void uartPrint(uint8_t data, byte base)		{printHelper( (uint32_t) data, base);}
+void uartPrint(int16_t data, byte base)		{printHelper( (long) data, base);}
+void uartPrint(uint16_t data, byte base)	{printHelper( (uint32_t) data, base);}
+void uartPrint(int32_t data, byte base)		{printHelper( (long) data, base);}
+void uartPrint(uint32_t data, byte base)	{printHelper( (uint32_t) data, base);}
 
-void uartPrintln(int8_t data)	{printHelper( (long) data); uartPrintln();}
-void uartPrintln(uint8_t data)	{printHelper( (long) data); uartPrintln();}
-void uartPrintln(int16_t data)	{printHelper( (long) data); uartPrintln();}
-void uartPrintln(uint16_t data)	{printHelper( (long) data); uartPrintln();}
-void uartPrintln(int32_t data)	{printHelper( (long) data); uartPrintln();}
-void uartPrintln(uint32_t data)	{printHelper( (uint32_t) data); uartPrintln();}
+void uartPrintln(int8_t data, byte base)	{printHelper( (long) data, base); uartPrintln();}
+void uartPrintln(uint8_t data, byte base)	{printHelper( (uint32_t) data, base); uartPrintln();}
+void uartPrintln(int16_t data, byte base)	{printHelper( (long) data, base); uartPrintln();}
+void uartPrintln(uint16_t data, byte base)	{printHelper( (uint32_t) data, base); uartPrintln();}
+void uartPrintln(int32_t data, byte base)	{printHelper( (long) data, base); uartPrintln();}
+void uartPrintln(uint32_t data, byte base)	{printHelper( (uint32_t) data, base); uartPrintln();}
 
 
-void printHelper(int32_t data) {
+void printHelper(int32_t data, byte base) {
 	if (data < 0) {
 		uartWrite(45);
 		data = -data;
 	}
-	printBytes(data);
+	printHelper((uint32_t) data, base);
 }
-void printHelper(uint32_t data) {
-	if (data < 0) {
-		uartWrite(45);
-		data = -data;
+void printHelper(uint32_t data, byte base) {
+	if (base == 10) {
+		printBytes(data);
+	} else {
+		char buf[8 * sizeof(long) + 1]; // Assumes 8-bit chars plus zero byte.
+		char *str = &buf[sizeof(buf) - 1];
+		*str = '\0';
+		if (base < 2) base = 10;
+		do {
+			char c = data % base;
+			data /= base;
+			*--str = c < 10 ? c + '0' : c + 'A' - 10;
+		} while (data);
+		uartPrint(str);
 	}
-	printBytes(data);
 }
+
 
 void printBytes(uint32_t data) {
 	int8_t bytes[10];
@@ -226,32 +235,20 @@ void printBytes(uint32_t data) {
 	}
 }
 
-void printBytes(uint32_t data, byte decimals) {
-	int8_t bytes[10];
-	byte amount;
-	for (byte i = 0; i < 10; i++) {
-		bytes[i] = data % 10;
-		data /= 10;
-		if (data == 0) {
-			amount = i;
-			break;
-		}
-	}	
-	for (int8_t i = amount; i >= amount - decimals + 1; i--) {
-		uartWrite(bytes[i] + '0');
-	}
-}
-
 void uartPrint(double data, byte decimals) {
 	if (data < 0) {
 		uartWrite(45);
 		data = -data;
 	}
 	uint32_t integer = data;
-	uint32_t fract = ((float)data - integer) * 1000000000;
 	printBytes(integer);
-	uartWrite(46);
-	printBytes(fract, decimals);
+	uartWrite(46);	// точка
+	data -= integer;
+	for (byte i = 0; i < decimals; i++) {	
+		data *= 10.0;
+		uartPrint((byte)data);
+		data -= (byte)data;
+	}
 }
 
 void uartPrint(double data) {
@@ -263,10 +260,6 @@ void uartPrintln(double data, byte decimals) {
 	uartPrintln();
 }
 
-void uartPrintln(double data) {
-	uartPrint(data, 2);
-	uartPrintln();
-}
 
 void uartPrint(String data) {
 	byte stringSize = data.length();
