@@ -215,7 +215,10 @@ extern const uint8_t PROGMEM digital_pin_to_timer_PGM[];
 #include "WString.h"
 #include "HardwareSerial.h"
 #include "uart.h"
-//#include "USBAPI.h"
+
+#ifdef _GYVERCORE_GYVERUART
+#define Serial uart
+#endif
 
 uint16_t makeWord(uint16_t w);
 uint16_t makeWord(byte h, byte l);

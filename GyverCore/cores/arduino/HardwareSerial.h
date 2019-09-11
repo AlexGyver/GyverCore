@@ -24,6 +24,8 @@
 #ifndef HardwareSerial_h
 #define HardwareSerial_h
 
+#ifndef _GYVERCORE_GYVERUART
+
 #include <inttypes.h>
 
 #include "Stream.h"
@@ -158,4 +160,5 @@ class HardwareSerial : public Stream
 
 extern void serialEventRun(void) __attribute__((weak));
 
+#endif
 #endif

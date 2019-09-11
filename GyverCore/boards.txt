@@ -6,7 +6,7 @@
 ## GyverCore on 328 based boards ##
 ###################################
 
-nano.build.extra_flags={extra_flags.timer} {extra_flags.init}
+nano.build.extra_flags={extra_flags.timer} {extra_flags.init} {extra_flags.uart}
 
 ## BOARD ##
 nano.name=ATmega328 based
@@ -125,6 +125,14 @@ nano.menu.timers.yes_millis=enable
 nano.menu.timers.yes_millis.extra_flags.timer=
 nano.menu.timers.no_millis=disable
 nano.menu.timers.no_millis.extra_flags.timer=-D_GYVERCORE_NOMILLIS
+
+## Serial ##
+menu.serial=Serial
+
+nano.menu.serial.default=default Serial
+nano.menu.serial.default.extra_flags.uart=
+nano.menu.serial.gyverUart=GyverUART
+nano.menu.serial.gyverUart.extra_flags.uart=-D_GYVERCORE_GYVERUART
 
 ## BOD ##
 menu.bod=B.O.D.
