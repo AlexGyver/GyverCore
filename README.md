@@ -1,6 +1,6 @@
 ![CORE_PHOTO](https://github.com/AlexGyver/GyverCore/blob/master/gyverCoreLogo.jpg)
 # GyverCore for ATmega328
- **Версия 1.8.2 от 11.09.2019**  
+ **Версия 1.8.3 от 11.09.2019**  
  Быстрое и лёгкое ядро для Arduino IDE с расширенной конфигурацией.  
  Основано на оригинальном ядре Arduino версии 1.8.9, большинство функций заменены на более быстрые и лёгкие аналоги, убрано всё лишнее и не относящееся к микроконтроллеру ATmega328p, убран почти весь Wiring-мусор, код упрощён и причёсан. Добавлено несколько функций и интересных вариантов компиляции.   
  Разработано by Александр **AlexGyver** и Egor 'Nich1con' Zaharov
@@ -20,10 +20,10 @@
 - Закрой окно
 - Выбери плату в **Инструменты > Плата > GyverCore > ATmega328/168 based**
 - Готово!
-- *Примечание*: файлы ядра находятся по пути C:\Users\Username\AppData\Local\Arduino15\packages\GyverCore\hardware\avr\1.8.2\
+- *Примечание*: файлы ядра находятся по пути C:\Users\Username\AppData\Local\Arduino15\packages\GyverCore\hardware\avr\1.8.3\
 
 ### Ручная
-- Файлы из папки GyverCore в этом репозитории положить по пути C:\Users\Username\AppData\Local\Arduino15\packages\GyverCore\hardware\avr\1.8.2\
+- Файлы из папки GyverCore в этом репозитории положить по пути C:\Users\Username\AppData\Local\Arduino15\packages\GyverCore\hardware\avr\1.8.3\
 
 ## Изменения
 ### Облегчено и ускорено
@@ -236,3 +236,5 @@ parseFloat      | 1070    | 246       | 824
 - 1.8.2
 	- uart обёрнут в класс
 	- Добавлена возможность заменить вызовы Serial на uart (через меню выбора платы)
+- 1.8.3
+	- uart улучшен, добавлен буфер на отправку данных

@@ -19,7 +19,7 @@ byte data11 = 0b11101011;
 uint32_t data12 = 0xFAB666;
 
 void setup() {
-  uart.begin();
+  uart.begin(9600);
   uart.println(data0);
   uart.println(data1);
   uart.println(data2);

@@ -2,6 +2,7 @@
 // Версия 1.2 - добавлен циклический буфер
 // версия 1.3 - пофикшен вывод float, добавлен вывод с базисом
 // Версия 1.4 - либа собрана в класс
+// Версия 1.5 - добавлен буфер на отправку и flush
 
 #ifndef GyverUART_h
 #define GyverUART_h
@@ -24,6 +25,7 @@ public:
 	char read();
 	char peek();
 	void clear();
+	void flush();
 
 	void setTimeout(int timeout);
 	int32_t parseInt();
@@ -55,12 +57,13 @@ public:
 	void println(uint32_t data, byte base = DEC);
 	void println(double data, byte decimals = 2);
 	void println(String data);
-	void println(char data[]);
+	void println(char data[]);	
 	
 private:
 	void printHelper(int32_t data, byte base);
 	void printHelper(uint32_t data, byte base);
-	void printBytes(uint32_t data);	
+	void printBytes(uint32_t data);
+	void startTransmission();
 };
 
 extern GyverUart uart;
