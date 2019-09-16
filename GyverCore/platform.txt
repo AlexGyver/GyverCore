@@ -1,4 +1,3 @@
-
 # GyverCore Arduino AVR Core and platform.
 # ------------------------------
 #
@@ -6,7 +5,7 @@
 # https://github.com/arduino/Arduino/wiki/Arduino-IDE-1.5-3rd-party-Hardware-specification
 
 name=GyverCore
-version=1.0.0
+version=1.8.4
 
 # AVR compile variables
 # ---------------------
@@ -18,7 +17,10 @@ compiler.warning_flags.more=-Wall
 compiler.warning_flags.all=-Wall -Wextra
 
 # Default "compiler.path" is correct, change only if you want to override the initial value
-compiler.path={runtime.tools.avr-gcc.path}/bin/
+
+#compiler.path={runtime.tools.avr-gcc.path}/bin/
+#compiler.path={runtime.platform.path}/tools/avr-gcc/bin/
+
 compiler.c.cmd=avr-gcc
 compiler.c.flags=-c -g -Os {compiler.warning_flags} -std=gnu11 -ffunction-sections -fdata-sections -MMD -flto -fno-fat-lto-objects
 compiler.c.elf.flags={compiler.warning_flags} -Os -g -flto -fuse-linker-plugin -Wl,--gc-sections
