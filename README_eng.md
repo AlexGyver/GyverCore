@@ -26,7 +26,7 @@
 ### Faster and lighter
 Time of compute, us
 
-Function        | Arduino   | GyverCore | Faster in
+Function        | Arduino   | GyverCore | Times faster
 ----------------|-----------|-----------|----------
 millis			| 1.06 us	| 1.00 us	| -
 micros			| 1.19 us	| 1.13 us	| -
@@ -63,7 +63,7 @@ parseInt        | 1030    | 214       | 816
 readString      | 2334    | 1594      | 740            
 parseFloat      | 1070    | 246       | 824         
 
-Note: **analogRead** and **analogReference** has advanced configuration
+Note: **analogRead** and **analogReference** has advanced configuration  
 Sketch with all of functions:
 - Arduino Core: 3446 byte (11%) Flash / 217 byte (10%) SRAM
 - GyverCore: 1436 byte (4%) Flash / 94 byte (4%) SRAM  
@@ -74,8 +74,6 @@ Empty sketch
 
 All libraries, based on Wiring functions, works much faster. Even SPI (more than 2 times faster!)
 	
-**uart** is an alternative to Serial, but much faster and lighter.
-
 ### Added
 - Wide Syntax Coloring Map (include names of registers and bits)
 - Macros **bitToggle**(value, bit), for fast bit inversion
@@ -92,6 +90,7 @@ All libraries, based on Wiring functions, works much faster. Even SPI (more than
 		- **64**: 56.04 us per conversion							
 		- **128**: 112 us per conversion
 	- In function **analogRead(pin)** you can use constants instead of pin number: **INTERNAL** (get reference voltage) and **THERMOMETR** (get core temperature). *Note: set ADC prescaler to 128*
+- **uart** class is an alternative to Serial, but much faster and lighter.
 - Advanced board menu
 	- Bootloader select
 	- Clock source and frequency select
