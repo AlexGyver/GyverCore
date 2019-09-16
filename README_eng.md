@@ -24,7 +24,7 @@
 
 ## Changes
 ### Faster and lighter
-Time of compute, us
+Time of execution, us
 
 Function        | Arduino   | GyverCore | Times faster
 ----------------|-----------|-----------|----------
