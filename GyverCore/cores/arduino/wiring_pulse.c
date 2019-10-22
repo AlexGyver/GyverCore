@@ -10,6 +10,8 @@
  */
 unsigned long pulseIn(uint8_t pin, uint8_t state, unsigned long timeout)
 {
+	return pulseInLong(pin, state, timeout);
+	/*
 	// cache the port and bit of the pin in order to speed up the
 	// pulse width measuring loop and achieve finer resolution.  calling
 	// digitalRead() instead yields much coarser resolution.
@@ -28,6 +30,7 @@ unsigned long pulseIn(uint8_t pin, uint8_t state, unsigned long timeout)
 		return clockCyclesToMicroseconds(width * 16 + 16);
 	else
 		return 0;
+	*/
 }
 
 /* Measures the length (in microseconds) of a pulse on the pin; state is HIGH

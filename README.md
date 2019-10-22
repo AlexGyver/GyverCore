@@ -1,7 +1,7 @@
 ![CORE_PHOTO](https://github.com/AlexGyver/GyverCore/blob/master/gyverCoreLogo.jpg)
 # GyverCore for ATmega328
  [**▶SWITCH TO ENGLISH◀**](https://github.com/AlexGyver/GyverCore/blob/master/README_eng.md)  
- **Версия 1.9.0 от 17.09.2019**  
+ **Версия 1.10.0 от 22.10.2019**  
  Быстрое и лёгкое ядро для Arduino IDE с расширенной конфигурацией.  
  Основано на оригинальном ядре Arduino версии 1.8.9, большинство функций заменены на более быстрые и лёгкие аналоги, убрано всё лишнее и не относящееся к микроконтроллеру ATmega328p, убран почти весь Wiring-мусор, код упрощён и причёсан. Добавлено несколько функций и интересных вариантов компиляции.   
  Разработано by Александр **AlexGyver** и Egor 'Nich1con' Zaharov
@@ -17,14 +17,16 @@
 - Открой **Инструменты > Плата > Менеджер плат...**
 - Подожди загрузку списка
 - Листай в самый низ, пока не увидишь **GyverCore**
+- Выбери свою версию: **Win32**, **Win64** или **Linux**
 - Жми **Установка**
 - Закрой окно
-- Выбери плату в **Инструменты > Плата > GyverCore > ATmega328/168 based**
+- Выбери плату в **Инструменты > Плата > GyverCore > ATmega328 based**
 - Готово!
-- *Примечание*: файлы ядра находятся по пути C:\Users\Username\AppData\Local\Arduino15\packages\GyverCore\hardware\avr\1.9.0\
+- *Примечание*: файлы ядра находятся по пути C:\Users\Username\AppData\Local\Arduino15\packages\GyverCore\hardware\avr\1.10.0\
 
 ### Ручная
-- Файлы из папки GyverCore в этом репозитории положить по пути C:\Users\Username\AppData\Local\Arduino15\packages\GyverCore\hardware\avr\1.9.0\
+- Файлы из папки GyverCore в этом репозитории положить по пути C:\Users\Username\AppData\Local\Arduino15\packages\GyverCore\hardware\avr\1.10.0\
+- Новая версия компилятора лежит отдельно!
 
 ## Изменения
 ### Облегчено и ускорено
@@ -34,9 +36,9 @@
 ----------------|-----------|-----------|----------
 millis			| 1.06 us	| 1.00 us	| -
 micros			| 1.19 us	| 1.13 us	| -
-pinMode         | 2.90 us   | 0.57 us   | 5.09      
-digitalWrite    | 2.90 us   | 0.57 us   | 5.09      
-digitalRead     | 2.45 us   | 0.50 us   | 4.90      
+pinMode         | 2.90 us   | 0.50 us   | 5.09      
+digitalWrite    | 2.90 us   | 0.50 us   | 5.09      
+digitalRead     | 2.45 us   | 0.00 us   | ?     
 analogWrite     | 4.15 us   | 1.13 us   | 3.67      
 analogRead      | 112.01 us | 5.41 us   | 20.70     
 analogReference | 0.00 us   | 0.00 us   | -    
@@ -50,9 +52,9 @@ tone			| 5.63 us   | 2.40 us   | 2.3
 ----------------|---------|-----------|---------------
 millis			| 26      | 24		  | 2
 micros			| 24	  | 20		  | 4
-pinMode         | 114     | 24        | 90             
-digitalWrite    | 200     | 24        | 176            
-digitalRead     | 190     | 24        | 166            
+pinMode         | 114     | 2         | 112             
+digitalWrite    | 200     | 2         | 198            
+digitalRead     | 190     | 0         | 190           
 analogWrite     | 406     | 48        | 358            
 analogRead      | 32      | 72        | -40            
 analogReference | 0       | 22        | -22            
@@ -104,6 +106,7 @@ parseFloat      | 1070    | 246       | 824
 	- **uart.begin(baudrate)** - запустить соединение по последовательному порту со скоростью baudrate
 	- **uart.end()** - выключить сериал
 	- **uart.peek()** - вернуть крайний байт из буфера, не убирая его оттуда
+	- **uart.flush()** - ждать принятия данных
 	- **uart.clear()** - очистить буфер
 	- **uart.read()** - вернуть крайний байт из буфера, убрав его оттуда
 	- **uart.write(val)** - запись в порт
@@ -177,7 +180,7 @@ parseFloat      | 1070    | 246       | 824
 ---
 **Compiler version** - версия компилятора
 - **default v5.4.0** - встроенная в IDE версия компилятора
-- **avr-gcc v8.3.0** - новая версия компилятора: компилирует быстрее, скетчи весят меньше!
+- **avr-gcc v8.3.0** - новая версия компилятора: компилирует быстрее, скетчи весят меньше! Билд взял [отсюда](https://blog.zakkemble.net/avr-gcc-builds/)
 
 ## Больше контроля!
 Для большего контроля за периферией микроконтроллера рекомендую попробовать следующие наши библиотеки:
@@ -258,3 +261,9 @@ parseFloat      | 1070    | 246       | 824
 	- Ещё чуть ускорен uart
 - 1.9.0
 	- Вшита новая версия компилятора avr-gcc
+- 1.10.0
+	- Расширена подсветка синтаксиса
+	- Пофикшен tone
+	- Пофикшен pulseIn (но выдаёт разрешение 4 мкс)
+	- Добавлен avr-gcc v8 под Win32 и Linux
+	- Ускорен IO

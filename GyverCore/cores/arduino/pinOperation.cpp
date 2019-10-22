@@ -1,5 +1,5 @@
 ﻿/*
-Нормальный ввод/вывод
+	Нормальный ввод/вывод
 */
 #define ARDUINO_MAIN
 #include "Arduino.h"
@@ -7,8 +7,33 @@
 static uint8_t a_ref = DEFAULT;  // глобальная переменная для хранения опорного напряжения АЦП
 // ============= DIGITAL =============
 
-void pinMode(uint8_t pin, uint8_t mode)
-{   uint8_t oldSREG = SREG; // запомнинаем были ли включены прерывания
+// service func
+uint8_t getOutputRegister(uint8_t pin) {
+	if (pin < 8) return &PORTD;
+	else if (pin < 14) return &PORTB;
+	else return &PORTC;
+}
+
+uint8_t getInputRegister(uint8_t pin) {
+	if (pin < 8) return &PIND;
+	else if (pin < 14) return &PINB;
+	else return &PINC;
+}
+
+uint8_t getModeRegister(uint8_t pin) {
+	if (pin < 8) return &DDRD;
+	else if (pin < 14) return &DDRB;
+	else return &DDRC;
+}
+
+uint8_t getBitMask(uint8_t pin) {
+	if (pin < 8) return (1 << pin);
+	else if (pin < 14) return (1 << (pin - 8));
+	else return (1 << (pin - 14));
+}
+
+void pinMode(uint8_t pin, uint8_t mode) {   
+	/*uint8_t oldSREG = SREG; // запомнинаем были ли включены прерывания
 	cli();//выключаем прерывания
 	switch (mode) {
 	case 0: // input
@@ -36,11 +61,27 @@ void pinMode(uint8_t pin, uint8_t mode)
 		}
 		break;
 	}
-	SREG = oldSREG; // если прерывания не были включены - не включаем и наоборот
+	SREG = oldSREG; // если прерывания не были включены - не включаем и наоборот*/
+	
+	uint8_t *modeReg = getModeRegister(pin);
+	uint8_t *outputReg = getOutputRegister(pin);
+	uint8_t mask = getBitMask(pin);
+	switch (mode) {
+	case 0x00:
+		*modeReg  &= ~ mask;
+		return;
+	case 0x01:
+		*modeReg |=  mask;
+		return;
+	case 0x02:
+		*modeReg  &= ~ mask;
+		*outputReg |= mask;
+		return;
+	}
 }
 
 void digitalWrite(uint8_t pin, uint8_t x) {
-	uint8_t oldSREG = SREG; // запомнинаем были ли включены прерывания
+	/*uint8_t oldSREG = SREG; // запомнинаем были ли включены прерывания
 	cli();//выключаем прерывания
 	switch (pin) { // откл pwm
 	case 3:  // 2B
@@ -65,26 +106,39 @@ void digitalWrite(uint8_t pin, uint8_t x) {
 	if (pin < 8) bitWrite(PORTD, pin, x);
 	else if (pin < 14) bitWrite(PORTB, (pin - 8), x);
 	else if (pin < 20) bitWrite(PORTC, (pin - 14), x);
-	SREG = oldSREG; // если прерывания не были включены - не включаем и наоборот
+	SREG = oldSREG; // если прерывания не были включены - не включаем и наоборот*/
+	
+	uint8_t *outputReg = getOutputRegister(pin);
+	uint8_t mask = getBitMask(pin);
+	if (x) *outputReg |= mask;
+	else *outputReg &= ~ mask;
 }
-
-int digitalRead (uint8_t pin) {
-	if (pin < 8) return bitRead(PIND, pin);
-	else if (pin < 14) return bitRead(PINB, pin - 8);
-	else if (pin < 20) return bitRead(PINC, pin - 14);
-}
-
 
 void digitalToggle(uint8_t pin){
-	uint8_t oldSREG = SREG; // запомнинаем были ли включены прерывания
+	/*uint8_t oldSREG = SREG; // запомнинаем были ли включены прерывания
 	cli();//выключаем прерывания
 	if (pin < 8) bitToggle(PORTD, pin);
 	else if (pin < 14) bitToggle(PORTB, pin - 8);
 	else if (pin < 20) bitToggle(PORTC, pin - 14);
 
-	SREG = oldSREG; // если прерывания не были включены - не включаем и наоборот
+	SREG = oldSREG; // если прерывания не были включены - не включаем и наоборот*/
+	
+	uint8_t *outputReg = getOutputRegister(pin);
+	uint8_t mask = getBitMask(pin);
+	*outputReg ^= mask;
 }
-// ============= ANALOG =============
+
+int digitalRead (uint8_t pin) {
+	/*if (pin < 8) return bitRead(PIND, pin);
+	else if (pin < 14) return bitRead(PINB, pin - 8);
+	else if (pin < 20) return bitRead(PINC, pin - 14);	*/
+	
+	uint8_t *inputReg = getInputRegister(pin);
+	uint8_t mask = getBitMask(pin);
+	return ((*inputReg & mask) ? 1 : 0);
+}
+
+// ================ ANALOG ================
 void analogPrescaler(uint8_t prescl) { 
 	uint8_t oldSREG = SREG; // запомнинаем были ли включены прерывания
 	cli();//выключаем прерывания
@@ -119,13 +173,11 @@ void analogPrescaler(uint8_t prescl) {
 	SREG = oldSREG; // если прерывания не были включены - не включаем и наоборот
 }
 
-void analogReference(uint8_t mode)
-{
+void analogReference(uint8_t mode) {
 	a_ref = mode; // изменения будут приняты в силу при следующем analogRead() / analogStartConvert()
 }
 
-int analogRead(uint8_t pin)
-{    
+int analogRead(uint8_t pin) {    
 	analogStartConvert(pin);
 	return analogGet();
 }
@@ -147,7 +199,7 @@ int analogGet() {
 	return ADCL | (ADCH << 8); // склеить и вернуть результат
 }
 
-// ============= PWM =============
+// ================= PWM =================
 void analogWrite(uint8_t pin, int val) {
 	if (val == 0) {
 		digitalWrite(pin, 0);
