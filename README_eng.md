@@ -1,6 +1,6 @@
 ![CORE_PHOTO](https://github.com/AlexGyver/GyverCore/blob/master/gyverCoreLogo.jpg)
 # GyverCore for ATmega328
- **Version 1.9.0 from 17.09.2019**   
+ **Version 1.10.0 from 22.10.2019**   
  Fast and light core for Arduino IDE with advanced configuration. **Only for ATmega328 boards!**  
  Based on original Arduino 1.8.9 core, all functions are replaced by faster versions, a bunch of interesting staff is added.  
  Made by **AlexGyver** and Egor 'Nich1con' Zaharov from mother Russia.  
@@ -20,7 +20,7 @@
 - After installation is complete close the Boards Manager window.
 
 ### Manual
-- Place all files from GyverCore to C:\Users\Username\AppData\Local\Arduino15\packages\GyverCore\hardware\avr\1.9.0\
+- Place all files from GyverCore to C:\Users\Username\AppData\Local\Arduino15\packages\GyverCore\hardware\avr\1.10.0\
 
 ## Changes
 ### Faster and lighter
