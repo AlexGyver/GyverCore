@@ -128,14 +128,14 @@ void digitalToggle(uint8_t pin){
 	*outputReg ^= mask;
 }
 
-int digitalRead (uint8_t pin) {
+bool digitalRead (uint8_t pin) {
 	/*if (pin < 8) return bitRead(PIND, pin);
 	else if (pin < 14) return bitRead(PINB, pin - 8);
 	else if (pin < 20) return bitRead(PINC, pin - 14);	*/
 	
 	uint8_t *inputReg = getInputRegister(pin);
 	uint8_t mask = getBitMask(pin);
-	return ((*inputReg & mask) ? 1 : 0);
+	return (*inputReg & mask);
 }
 
 // ================ ANALOG ================

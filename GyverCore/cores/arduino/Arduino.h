@@ -111,7 +111,7 @@ void digitalToggle(uint8_t pin);
 // old
 void pinMode(uint8_t pin, uint8_t mode);
 void digitalWrite(uint8_t pin, uint8_t x);
-int digitalRead (uint8_t pin);
+bool digitalRead (uint8_t pin);
 int analogRead(uint8_t pin);
 void analogReference(uint8_t mode);
 void analogWrite(uint8_t pin, int val);
