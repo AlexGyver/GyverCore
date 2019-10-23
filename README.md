@@ -17,13 +17,12 @@
 - Открой **Инструменты > Плата > Менеджер плат...**
 - Подожди загрузку списка
 - Листай в самый низ, пока не увидишь **GyverCore**
-- Выбери свою версию: **Win32**, **Win64** или **Linux**
 - Жми **Установка**
 - Закрой окно
 - Выбери плату в **Инструменты > Плата > GyverCore > ATmega328 based**
 - Готово!
 - *Примечание*: новая версия компилятора по умолчанию идёт для Windows 64, если нужно для win32 или Linux - нужно установить вручную.
-Идём в *C:\Users\Username\AppData\Local\Arduino15\packages\GyverCore\hardware\avr\1.10.0\tools\avr-gcc\*, удаляем оттуда всё и кладём туда файлы из архива нужной версии (папка avr-gcc в корне данного репозитория)
+Идём в C:\Users\Username\AppData\Local\Arduino15\packages\GyverCore\hardware\avr\1.10.0\tools\avr-gcc\, удаляем оттуда всё и кладём туда файлы из архива нужной версии (папка avr-gcc в корне данного репозитория)
 
 ### Ручная
 - Файлы из папки GyverCore в этом репозитории положить по пути C:\Users\Username\AppData\Local\Arduino15\packages\GyverCore\hardware\avr\1.10.0\
