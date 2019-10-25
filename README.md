@@ -1,7 +1,7 @@
 ![CORE_PHOTO](https://github.com/AlexGyver/GyverCore/blob/master/gyverCoreLogo.jpg)
 # GyverCore for ATmega328
  [**▶SWITCH TO ENGLISH◀**](https://github.com/AlexGyver/GyverCore/blob/master/README_eng.md)  
- **Версия 1.10.0 от 22.10.2019**  
+ **Версия 1.10.1 от 25.10.2019**  
  Быстрое и лёгкое ядро для Arduino IDE с расширенной конфигурацией.  
  Основано на оригинальном ядре Arduino версии 1.8.9, большинство функций заменены на более быстрые и лёгкие аналоги, убрано всё лишнее и не относящееся к микроконтроллеру ATmega328p, убран почти весь Wiring-мусор, код упрощён и причёсан. Добавлено несколько функций и интересных вариантов компиляции.   
  Разработано by Александр **AlexGyver** и Egor 'Nich1con' Zaharov
@@ -22,10 +22,10 @@
 - Выбери плату в **Инструменты > Плата > GyverCore > ATmega328 based**
 - Готово!
 - *Примечание*: новая версия компилятора по умолчанию идёт для Windows 64, если нужно для win32 или Linux - нужно установить вручную.
-Идём в C:\Users\Username\AppData\Local\Arduino15\packages\GyverCore\hardware\avr\1.10.0\tools\avr-gcc\, удаляем оттуда всё и кладём туда файлы из архива нужной версии (папка avr-gcc в корне данного репозитория)
+Идём в C:\Users\Username\AppData\Local\Arduino15\packages\GyverCore\hardware\avr\1.10.1\tools\avr-gcc\, удаляем оттуда всё и кладём туда файлы из архива нужной версии (папка avr-gcc в корне данного репозитория)
 
 ### Ручная
-- Файлы из папки GyverCore в этом репозитории положить по пути C:\Users\Username\AppData\Local\Arduino15\packages\GyverCore\hardware\avr\1.10.0\
+- Файлы из папки GyverCore в этом репозитории положить по пути C:\Users\Username\AppData\Local\Arduino15\packages\GyverCore\hardware\avr\1.10.1\
 - Версия компилятора по умолчанию для Windows 64, если нужна другая - читай выше как установить
 
 ## Изменения
@@ -36,9 +36,9 @@
 ----------------|-----------|-----------|----------
 millis			| 1.06 us	| 1.00 us	| -
 micros			| 1.19 us	| 1.13 us	| -
-pinMode         | 2.90 us   | 0.50 us   | 5.09      
-digitalWrite    | 2.90 us   | 0.50 us   | 5.09      
-digitalRead     | 2.45 us   | 0.00 us   | ?     
+pinMode         | 2.90 us   | 0.57 us   | 5.09      
+digitalWrite    | 2.90 us   | 0.57 us   | 5.09      
+digitalRead     | 2.45 us   | 0.50 us   | ?     
 analogWrite     | 4.15 us   | 1.13 us   | 3.67      
 analogRead      | 112.01 us | 5.41 us   | 20.70     
 analogReference | 0.00 us   | 0.00 us   | -    
@@ -52,9 +52,9 @@ tone			| 5.63 us   | 2.40 us   | 2.3
 ----------------|---------|-----------|---------------
 millis			| 26      | 24		  | 2
 micros			| 24	  | 20		  | 4
-pinMode         | 114     | 2         | 112             
-digitalWrite    | 200     | 2         | 198            
-digitalRead     | 190     | 0         | 190           
+pinMode         | 114     | 24        | 90             
+digitalWrite    | 200     | 24        | 176            
+digitalRead     | 190     | 24        | 166           
 analogWrite     | 406     | 48        | 358            
 analogRead      | 32      | 72        | -40            
 analogReference | 0       | 22        | -22            
@@ -267,3 +267,5 @@ parseFloat      | 1070    | 246       | 824
 	- Пофикшен pulseIn (но выдаёт разрешение 4 мкс)
 	- Добавлен avr-gcc v8 под Win32 и Linux
 	- Ускорен IO
+- 1.10.1
+	- IO откатили назад из за непонятных багов

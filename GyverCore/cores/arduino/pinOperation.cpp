@@ -81,7 +81,7 @@ void pinMode(uint8_t pin, uint8_t mode) {
 }
 
 void digitalWrite(uint8_t pin, uint8_t x) {
-	/*uint8_t oldSREG = SREG; // запомнинаем были ли включены прерывания
+	uint8_t oldSREG = SREG; // запомнинаем были ли включены прерывания
 	cli();//выключаем прерывания
 	switch (pin) { // откл pwm
 	case 3:  // 2B
@@ -106,36 +106,37 @@ void digitalWrite(uint8_t pin, uint8_t x) {
 	if (pin < 8) bitWrite(PORTD, pin, x);
 	else if (pin < 14) bitWrite(PORTB, (pin - 8), x);
 	else if (pin < 20) bitWrite(PORTC, (pin - 14), x);
-	SREG = oldSREG; // если прерывания не были включены - не включаем и наоборот*/
+	SREG = oldSREG; // если прерывания не были включены - не включаем и наоборот
 	
-	uint8_t *outputReg = getOutputRegister(pin);
+	/*uint8_t *outputReg = getOutputRegister(pin);
 	uint8_t mask = getBitMask(pin);
 	if (x) *outputReg |= mask;
-	else *outputReg &= ~ mask;
+	else *outputReg &= ~ mask;*/
 }
 
 void digitalToggle(uint8_t pin){
-	/*uint8_t oldSREG = SREG; // запомнинаем были ли включены прерывания
+	uint8_t oldSREG = SREG; // запомнинаем были ли включены прерывания
 	cli();//выключаем прерывания
 	if (pin < 8) bitToggle(PORTD, pin);
 	else if (pin < 14) bitToggle(PORTB, pin - 8);
 	else if (pin < 20) bitToggle(PORTC, pin - 14);
 
-	SREG = oldSREG; // если прерывания не были включены - не включаем и наоборот*/
+	SREG = oldSREG; // если прерывания не были включены - не включаем и наоборот
 	
-	uint8_t *outputReg = getOutputRegister(pin);
+	/*uint8_t *outputReg = getOutputRegister(pin);
 	uint8_t mask = getBitMask(pin);
-	*outputReg ^= mask;
+	*outputReg ^= mask;*/
 }
 
 bool digitalRead (uint8_t pin) {
-	/*if (pin < 8) return bitRead(PIND, pin);
+	if (pin < 8) return bitRead(PIND, pin);
 	else if (pin < 14) return bitRead(PINB, pin - 8);
-	else if (pin < 20) return bitRead(PINC, pin - 14);	*/
+	else if (pin < 20) return bitRead(PINC, pin - 14);
 	
-	uint8_t *inputReg = getInputRegister(pin);
+	/*uint8_t *inputReg = getInputRegister(pin);
 	uint8_t mask = getBitMask(pin);
-	return (*inputReg & mask);
+	//return ((*inputReg & mask) ? true : false);
+	return bool(*inputReg & mask);*/
 }
 
 // ================ ANALOG ================
