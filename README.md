@@ -38,7 +38,7 @@ millis			| 1.06 us	| 1.00 us	| -
 micros			| 1.19 us	| 1.13 us	| -
 pinMode         | 2.90 us   | 0.57 us   | 5.09      
 digitalWrite    | 2.90 us   | 0.57 us   | 5.09      
-digitalRead     | 2.45 us   | 0.50 us   | ?     
+digitalRead     | 2.45 us   | 0.50 us   | 4.9     
 analogWrite     | 4.15 us   | 1.13 us   | 3.67      
 analogRead      | 112.01 us | 5.41 us   | 20.70     
 analogReference | 0.00 us   | 0.00 us   | -    
