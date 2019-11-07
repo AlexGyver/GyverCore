@@ -7,6 +7,7 @@
 static uint8_t a_ref = DEFAULT;  // глобальная переменная для хранения опорного напряжения АЦП
 // ============= DIGITAL =============
 
+/*
 // service func
 uint8_t getOutputRegister(uint8_t pin) {
 	if (pin < 8) return &PORTD;
@@ -31,10 +32,10 @@ uint8_t getBitMask(uint8_t pin) {
 	else if (pin < 14) return (1 << (pin - 8));
 	else return (1 << (pin - 14));
 }
-
+*/
 void pinMode(uint8_t pin, uint8_t mode) {   
-	/*uint8_t oldSREG = SREG; // запомнинаем были ли включены прерывания
-	cli();//выключаем прерывания
+	//uint8_t oldSREG = SREG; // запомнинаем были ли включены прерывания
+	//cli();//выключаем прерывания
 	switch (mode) {
 	case 0: // input
 		if (pin < 8) bitWrite(DDRD, pin, 0);   // расставляем нули в DDRn
@@ -61,8 +62,8 @@ void pinMode(uint8_t pin, uint8_t mode) {
 		}
 		break;
 	}
-	SREG = oldSREG; // если прерывания не были включены - не включаем и наоборот*/
-	
+	//SREG = oldSREG; // если прерывания не были включены - не включаем и наоборот*/
+	/*
 	uint8_t *modeReg = getModeRegister(pin);
 	uint8_t *outputReg = getOutputRegister(pin);
 	uint8_t mask = getBitMask(pin);
@@ -77,12 +78,12 @@ void pinMode(uint8_t pin, uint8_t mode) {
 		*modeReg  &= ~ mask;
 		*outputReg |= mask;
 		return;
-	}
+	}*/
 }
 
 void digitalWrite(uint8_t pin, uint8_t x) {
-	uint8_t oldSREG = SREG; // запомнинаем были ли включены прерывания
-	cli();//выключаем прерывания
+	//uint8_t oldSREG = SREG; // запомнинаем были ли включены прерывания
+	//cli();//выключаем прерывания
 	switch (pin) { // откл pwm
 	case 3:  // 2B
 		TCCR2A &= ~(1 << COM2B1);
@@ -106,7 +107,7 @@ void digitalWrite(uint8_t pin, uint8_t x) {
 	if (pin < 8) bitWrite(PORTD, pin, x);
 	else if (pin < 14) bitWrite(PORTB, (pin - 8), x);
 	else if (pin < 20) bitWrite(PORTC, (pin - 14), x);
-	SREG = oldSREG; // если прерывания не были включены - не включаем и наоборот
+	//SREG = oldSREG; // если прерывания не были включены - не включаем и наоборот
 	
 	/*uint8_t *outputReg = getOutputRegister(pin);
 	uint8_t mask = getBitMask(pin);
@@ -115,13 +116,13 @@ void digitalWrite(uint8_t pin, uint8_t x) {
 }
 
 void digitalToggle(uint8_t pin){
-	uint8_t oldSREG = SREG; // запомнинаем были ли включены прерывания
-	cli();//выключаем прерывания
+	//uint8_t oldSREG = SREG; // запомнинаем были ли включены прерывания
+	//cli();//выключаем прерывания
 	if (pin < 8) bitToggle(PORTD, pin);
 	else if (pin < 14) bitToggle(PORTB, pin - 8);
 	else if (pin < 20) bitToggle(PORTC, pin - 14);
 
-	SREG = oldSREG; // если прерывания не были включены - не включаем и наоборот
+	//SREG = oldSREG; // если прерывания не были включены - не включаем и наоборот
 	
 	/*uint8_t *outputReg = getOutputRegister(pin);
 	uint8_t mask = getBitMask(pin);
