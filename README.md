@@ -1,7 +1,7 @@
 ![CORE_PHOTO](https://github.com/AlexGyver/GyverCore/blob/master/gyverCoreLogo.jpg)
 # GyverCore for ATmega328
  [**▶SWITCH TO ENGLISH◀**](https://github.com/AlexGyver/GyverCore/blob/master/README_eng.md)  
- **Версия 1.10.1 от 25.10.2019**  
+ **Версия 1.10.2 от 07.11.2019**  
  Быстрое и лёгкое ядро для Arduino IDE с расширенной конфигурацией.  
  Основано на оригинальном ядре Arduino версии 1.8.9, большинство функций заменены на более быстрые и лёгкие аналоги, убрано всё лишнее и не относящееся к микроконтроллеру ATmega328p, убран почти весь Wiring-мусор, код упрощён и причёсан. Добавлено несколько функций и интересных вариантов компиляции.   
  Разработано by Александр **AlexGyver** и Egor 'Nich1con' Zaharov
@@ -25,7 +25,7 @@
 Идём в C:\Users\Username\AppData\Local\Arduino15\packages\GyverCore\hardware\avr\1.10.1\tools\avr-gcc\, удаляем оттуда всё и кладём туда файлы из архива нужной версии (папка avr-gcc в корне данного репозитория)
 
 ### Ручная
-- Файлы из папки GyverCore в этом репозитории положить по пути C:\Users\Username\AppData\Local\Arduino15\packages\GyverCore\hardware\avr\1.10.1\
+- Файлы из папки GyverCore в этом репозитории положить по пути C:\Users\Username\AppData\Local\Arduino15\packages\GyverCore\hardware\avr\1.10.2\
 - Версия компилятора по умолчанию для Windows 64, если нужна другая - читай выше как установить
 
 ## Изменения
