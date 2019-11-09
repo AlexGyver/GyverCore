@@ -30,21 +30,21 @@
 
 ## Изменения
 ### Облегчено и ускорено
-Время выполнения функций, мкс
+Время выполнения функций, мкс (при 16 МГц кварце)
 
-Функция         | Arduino   | GyverCore | Быстрее в 
+Функция         | Arduino   | GyverCore | Быстрее в, раз
 ----------------|-----------|-----------|----------
-millis			| 1.06 us	| 1.00 us	| -
-micros			| 1.19 us	| 1.13 us	| -
-pinMode         | 2.90 us   | 0.57 us   | 5.09      
-digitalWrite    | 2.90 us   | 0.57 us   | 5.09      
-digitalRead     | 2.45 us   | 0.50 us   | 4.9     
-analogWrite     | 4.15 us   | 1.13 us   | 3.67      
-analogRead      | 112.01 us | 5.41 us   | 20.70     
-analogReference | 0.00 us   | 0.00 us   | -    
-attachInterrupt | 1.20 us   | 1.18 us   | 1.02      
-detachInterrupt | 0.82 us   | 0.57 us   | 1.44    
-tone			| 5.63 us   | 2.40 us   | 2.3     
+millis			| 0.69 us	| 0.69 us	| -
+micros			| 0.81 us	| 0.81 us	| -
+pinMode         | 2.56 us   | 0.125 us  | 20.5     
+digitalWrite    | 2.40 us   | 0.43 us   | 5.6      
+digitalRead     | 2.06 us   | 0.063 us  | 33    
+analogWrite     | 5.9 us    | 0.63 us   | 9.3   
+analogRead      | 107.2 us  | 5.94 us   | 18 
+analogReference | 0.19 us   | 0.19 us   | -    
+attachInterrupt | 1.06 us   | 1.0 us    | -     
+detachInterrupt | 0.5 us    | 0.13 us   | 3.8   
+tone			| 9.0 us    | 2.25 us   | 4
 
 Занимаемое место, Flash, байт
 

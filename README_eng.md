@@ -1,6 +1,6 @@
 ![CORE_PHOTO](https://github.com/AlexGyver/GyverCore/blob/master/gyverCoreLogo.jpg)
 # GyverCore for ATmega328
- **Version 1.10.0 from 22.10.2019**   
+ **Version 1.10.2 from 07.11.2019**   
  Fast and light core for Arduino IDE with advanced configuration. **Only for ATmega328 boards!**  
  Based on original Arduino 1.8.9 core, all functions are replaced by faster versions, a bunch of interesting staff is added.  
  Made by **AlexGyver** and Egor 'Nich1con' Zaharov from mother Russia.  
@@ -28,17 +28,17 @@ Time of execution, us
 
 Function        | Arduino   | GyverCore | Times faster
 ----------------|-----------|-----------|----------
-millis			| 1.06 us	| 1.00 us	| -
-micros			| 1.19 us	| 1.13 us	| -
-pinMode         | 2.90 us   | 0.57 us   | 5.09      
-digitalWrite    | 2.90 us   | 0.57 us   | 5.09      
-digitalRead     | 2.45 us   | 0.50 us   | 4.90      
-analogWrite     | 4.15 us   | 1.13 us   | 3.67      
-analogRead      | 112.01 us | 5.41 us   | 20.70     
-analogReference | 0.00 us   | 0.00 us   | -    
-attachInterrupt | 1.20 us   | 1.18 us   | 1.02      
-detachInterrupt | 0.82 us   | 0.57 us   | 1.44    
-tone			| 5.63 us   | 2.40 us   | 2.3     
+millis			| 0.69 us	| 0.69 us	| -
+micros			| 0.81 us	| 0.81 us	| -
+pinMode         | 2.56 us   | 0.125 us  | 20.5     
+digitalWrite    | 2.40 us   | 0.43 us   | 5.6      
+digitalRead     | 2.06 us   | 0.063 us  | 33    
+analogWrite     | 5.9 us    | 0.63 us   | 9.3   
+analogRead      | 107.2 us  | 5.94 us   | 18 
+analogReference | 0.19 us   | 0.19 us   | -    
+attachInterrupt | 1.06 us   | 1.0 us    | -     
+detachInterrupt | 0.5 us    | 0.13 us   | 3.8   
+tone			| 9.0 us    | 2.25 us   | 4
 
 Flash, byte
 
