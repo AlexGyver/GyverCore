@@ -37,7 +37,7 @@
 millis			| 0.69 us	| 0.69 us	| -
 micros			| 0.81 us	| 0.81 us	| -
 pinMode         | 2.56 us   | 0.125 us  | 20.5     
-digitalWrite    | 2.40 us   | 0.43 us   | 5.6      
+digitalWrite    | 2.40 us   | 0.125 us* | 19      
 digitalRead     | 2.06 us   | 0.063 us  | 33    
 analogWrite     | 5.9 us    | 0.63 us   | 9.3   
 analogRead      | 107.2 us  | 5.94 us   | 18 
@@ -45,6 +45,8 @@ analogReference | 0.19 us   | 0.19 us   | -
 attachInterrupt | 1.06 us   | 1.0 us    | -     
 detachInterrupt | 0.5 us    | 0.13 us   | 3.8   
 tone			| 9.0 us    | 2.25 us   | 4
+
+_*digitalWrite для ШИМ пинов занимает 0.43 мкс_
 
 Занимаемое место, Flash, байт
 

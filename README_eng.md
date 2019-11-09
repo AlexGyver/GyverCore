@@ -31,7 +31,7 @@ Function        | Arduino   | GyverCore | Times faster
 millis			| 0.69 us	| 0.69 us	| -
 micros			| 0.81 us	| 0.81 us	| -
 pinMode         | 2.56 us   | 0.125 us  | 20.5     
-digitalWrite    | 2.40 us   | 0.43 us   | 5.6      
+digitalWrite    | 2.40 us   | 0.125 us  | 19     
 digitalRead     | 2.06 us   | 0.063 us  | 33    
 analogWrite     | 5.9 us    | 0.63 us   | 9.3   
 analogRead      | 107.2 us  | 5.94 us   | 18 
