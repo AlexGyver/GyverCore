@@ -1,7 +1,7 @@
 ![CORE_PHOTO](https://github.com/AlexGyver/GyverCore/blob/master/gyverCoreLogo.jpg)
 # GyverCore for ATmega328
  [**▶SWITCH TO ENGLISH◀**](https://github.com/AlexGyver/GyverCore/blob/master/README_eng.md)  
- **Версия 1.10.2 от 07.11.2019**  
+ **Версия 2.0 от 01.02.2020**  
  Быстрое и лёгкое ядро для Arduino IDE с расширенной конфигурацией.  
  Основано на оригинальном ядре Arduino версии 1.8.9, большинство функций заменены на более быстрые и лёгкие аналоги, убрано всё лишнее и не относящееся к микроконтроллеру ATmega328p, убран почти весь Wiring-мусор, код упрощён и причёсан. Добавлено несколько функций и интересных вариантов компиляции.   
  Разработано by Александр **AlexGyver** и Egor 'Nich1con' Zaharov
@@ -25,10 +25,10 @@
 - Выбери плату в **Инструменты > Плата > GyverCore > ATmega328 based**
 - Готово!
 - *Примечание*: новая версия компилятора по умолчанию идёт для Windows 64, если нужно для win32 или Linux - нужно установить вручную.
-Идём в C:\Users\Username\AppData\Local\Arduino15\packages\GyverCore\hardware\avr\1.10.1\tools\avr-gcc\, удаляем оттуда всё и кладём туда файлы из архива нужной версии (папка avr-gcc в корне данного репозитория)
+Идём в C:\Users\Username\AppData\Local\Arduino15\packages\GyverCore\hardware\avr\2.0\tools\avr-gcc\, удаляем оттуда всё и кладём туда файлы из архива нужной версии (папка avr-gcc в корне данного репозитория)
 
 ### Ручная
-- Файлы из папки GyverCore в этом репозитории положить по пути C:\Users\Username\AppData\Local\Arduino15\packages\GyverCore\hardware\avr\1.10.2\
+- Файлы из папки GyverCore в этом репозитории положить по пути C:\Users\Username\AppData\Local\Arduino15\packages\GyverCore\hardware\avr\2.0\
 - Версия компилятора по умолчанию для Windows 64, если нужна другая - читай выше как установить
 
 ## Изменения
@@ -95,8 +95,8 @@ parseFloat      | 1070    | 246       | 824
 - Макрос **bitToggle**(value, bit), инвертирует состояние бита **bit** в байте **value**
 - Быстрая функция **digitalToggle**(pin), инвертирует состояние пина
 - Расширенная работа с АЦП
-	- **analogStartConvert**(byte pin) - начать преобразование с выбранного пина
-	- **analogGet()** - получить преобразованное значение (между analogStartConvert и analogGet можно выполнять действия, в отличие от ожидания в analogRead())
+	- Убрано в 2.0 ~~**analogStartConvert**(byte pin) - начать преобразование с выбранного пина~~
+	- Убрано в 2.0 ~~**analogGet()** - получить преобразованное значение (между analogStartConvert и analogGet можно выполнять действия, в отличие от ожидания в analogRead())~~
 	- **analogPrescaler**(uint8_t prescl) - установить предделитель для АЦП (2, 4, 8, 16, 32, 64, 128) - управляет скоростью работы АЦП (скоростью оцифровки). Prescaler:
 		- **2**: 3.04 мкс (частота оцифровки 329 000 кГц)
 		- **4**: 4.72 мкс (частота оцифровки 210 000 кГц)
@@ -277,3 +277,11 @@ parseFloat      | 1070    | 246       | 824
 - 1.10.2
 	- Пара багфиксов с IO
 	- Вернули заголовочные для WiFi
+- 2.0.0
+	- Убраны все дополнительные функции кроме analogPrescaler и digitalToggle
+	- Почищены и отформатированы файлы
+	- Исправлен конфликт с IP
+	- Подкорректировано меню платы
+	- Исправлена уязвимость в pinMode
+	- Cнижен вес
+	- Повышена скорость некоторых функций
