@@ -5,7 +5,7 @@
 # https://github.com/arduino/Arduino/wiki/Arduino-IDE-1.5-3rd-party-Hardware-specification
 
 name=GyverCore
-version=1.10.2
+version=2.0
 
 # AVR compile variables
 # ---------------------

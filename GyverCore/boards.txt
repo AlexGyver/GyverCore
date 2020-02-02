@@ -26,63 +26,6 @@ nano.build.core=arduino
 nano.build.mcu=atmega328p
 
 
-## CLOCK ##
-menu.clock=Clock
-
-nano.menu.clock.external_16=external 16 MHz
-nano.menu.clock.external_16.fuses.CKDIV8=1
-nano.menu.clock.external_16.fuses.CKSEL=111111
-nano.menu.clock.external_16.build.f_cpu=16000000L
-nano.menu.clock.external_16.bootloader.suffix=atmega328
-nano.menu.clock.external_16.upload.speed={speeds.US16MHZ}
-
-nano.menu.clock.external_8=external 8 MHz
-nano.menu.clock.external_8.fuses.CKDIV8=1
-nano.menu.clock.external_8.fuses.CKSEL=111111
-nano.menu.clock.external_8.build.f_cpu=8000000L
-nano.menu.clock.external_8.bootloader.suffix=atmega328
-nano.menu.clock.external_8.upload.speed={speeds.US8MHZ}
-
-nano.menu.clock.internal_8=internal 8 MHz
-nano.menu.clock.internal_8.fuses.CKDIV8=1
-nano.menu.clock.internal_8.fuses.CKSEL=010010
-nano.menu.clock.internal_8.build.f_cpu=8000000L
-nano.menu.clock.internal_8.bootloader.suffix=atmega328
-nano.menu.clock.internal_8.upload.speed={speeds.US8MHZ}
-
-nano.menu.clock.internal_1=internal 1 MHz
-nano.menu.clock.internal_1.fuses.CKDIV8=0
-nano.menu.clock.internal_1.fuses.CKSEL=010010
-nano.menu.clock.internal_1.build.f_cpu=1000000L
-nano.menu.clock.internal_1.bootloader.suffix=atmega328
-nano.menu.clock.internal_1.upload.speed={speeds.US1MHZ}
-
-nano.menu.clock.internal_128=internal 128 kHz
-nano.menu.clock.internal_128.fuses.CKDIV8=1
-nano.menu.clock.internal_128.fuses.CKSEL=010011
-nano.menu.clock.internal_128.build.f_cpu=128000L
-nano.menu.clock.internal_128.bootloader.suffix=emptyBoot
-nano.menu.clock.internal_128.upload.speed=666
-
-## CLOCKOUT
-menu.co=Clock out PB0 (D8)
-
-nano.menu.co.disabled=disable
-nano.menu.co.disabled.fuses.CKOUT=1
-
-nano.menu.co.enabled=enable
-nano.menu.co.enabled.fuses.CKOUT=0
-
-## EESAVE
-menu.es=Save EEPROM
-
-nano.menu.es.enabled=enable
-nano.menu.es.enabled.fuses.EESAVE=0
-
-nano.menu.es.disabled=disable
-nano.menu.es.disabled.fuses.EESAVE=1
-
-
 ## BOOT ##
 menu.boot=Bootloader
 
@@ -110,7 +53,7 @@ nano.menu.boot.optiboot_v8.speeds.US16MHZ=115200
 nano.menu.boot.optiboot_v8.speeds.US8MHZ=57600
 nano.menu.boot.optiboot_v8.speeds.US1MHZ=7200
 
-nano.menu.boot.no=Without bootloader
+nano.menu.boot.no=Without bootloader [Warning!]
 nano.menu.boot.no.upload.maximum_size=32768
 nano.menu.boot.no.fuses.BOOT=111
 nano.menu.boot.no.bootloader.dir=empty
@@ -118,46 +61,124 @@ nano.menu.boot.no.speeds.US16MHZ=666
 nano.menu.boot.no.speeds.US8MHZ=666
 nano.menu.boot.no.speeds.US1MHZ=666
 
-## TIMER ##
-menu.timers=System timer
 
-nano.menu.timers.yes_millis=enable
-nano.menu.timers.yes_millis.extra_flags.timer=
-nano.menu.timers.no_millis=disable
-nano.menu.timers.no_millis.extra_flags.timer=-D_GYVERCORE_NOMILLIS
+
+## CLOCK ##
+menu.clock=Clock
+
+nano.menu.clock.external_16=External 16 MHz
+nano.menu.clock.external_16.fuses.CKDIV8=1
+nano.menu.clock.external_16.fuses.CKSEL=111111
+nano.menu.clock.external_16.build.f_cpu=16000000L
+nano.menu.clock.external_16.bootloader.suffix=atmega328
+nano.menu.clock.external_16.upload.speed={speeds.US16MHZ}
+
+nano.menu.clock.external_8=External 8 MHz
+nano.menu.clock.external_8.fuses.CKDIV8=1
+nano.menu.clock.external_8.fuses.CKSEL=111111
+nano.menu.clock.external_8.build.f_cpu=8000000L
+nano.menu.clock.external_8.bootloader.suffix=atmega328
+nano.menu.clock.external_8.upload.speed={speeds.US8MHZ}
+
+nano.menu.clock.internal_8=Internal 8 MHz
+nano.menu.clock.internal_8.fuses.CKDIV8=1
+nano.menu.clock.internal_8.fuses.CKSEL=010010
+nano.menu.clock.internal_8.build.f_cpu=8000000L
+nano.menu.clock.internal_8.bootloader.suffix=atmega328
+nano.menu.clock.internal_8.upload.speed={speeds.US8MHZ}
+
+nano.menu.clock.internal_1=Internal 1 MHz [CKDIV8]
+nano.menu.clock.internal_1.fuses.CKDIV8=0
+nano.menu.clock.internal_1.fuses.CKSEL=010010
+nano.menu.clock.internal_1.build.f_cpu=1000000L
+nano.menu.clock.internal_1.bootloader.suffix=atmega328
+nano.menu.clock.internal_1.upload.speed={speeds.US1MHZ}
+
+nano.menu.clock.internal_128=Internal 128 kHz [Warning!]
+nano.menu.clock.internal_128.fuses.CKDIV8=1
+nano.menu.clock.internal_128.fuses.CKSEL=010011
+nano.menu.clock.internal_128.build.f_cpu=128000L
+nano.menu.clock.internal_128.bootloader.suffix=emptyBoot
+nano.menu.clock.internal_128.upload.speed=666
+
 
 ## Serial ##
 menu.serial=Serial
 
-nano.menu.serial.default=default Serial
+nano.menu.serial.default=Default Serial
 nano.menu.serial.default.extra_flags.uart=
-nano.menu.serial.gyverUart=GyverUART
+nano.menu.serial.gyverUart=GyverUART [Warning!] 
 nano.menu.serial.gyverUart.extra_flags.uart=-D_GYVERCORE_GYVERUART
-
-## BOD ##
-menu.bod=B.O.D.
-
-nano.menu.bod.disable=disable
-nano.menu.bod.disable.bootloader.extended_fuses=0xFF
-nano.menu.bod.bod_1_8=1.8V
-nano.menu.bod.bod_1_8.bootloader.extended_fuses=0xFE
-nano.menu.bod.bod_2_7=2.7V (default)
-nano.menu.bod.bod_2_7.bootloader.extended_fuses=0xFD
-nano.menu.bod.bod_4_3=4.3V
-nano.menu.bod.bod_4_3.bootloader.extended_fuses=0xFC
-
-## INIT ##
-menu.init=Initialization
-
-nano.menu.init.enable=enable 
-nano.menu.init.enable.extra_flags.init=
-nano.menu.init.no_init=disable
-nano.menu.init.no_init.extra_flags.init=-D_GYVERCORE_NOINIT
 
 ## COMPILER ##
 menu.compiler_version=Compiler version
 
-nano.menu.compiler_version.avrgcc5=default v5.4.0
+nano.menu.compiler_version.avrgcc5=AVR-GCC v5.4.0 [Default]
 nano.menu.compiler_version.avrgcc5.compiler.path={runtime.tools.avr-gcc.path}/bin/
-nano.menu.compiler_version.avrgcc8=avr-gcc v8.3.0
+nano.menu.compiler_version.avrgcc8=AVR-GCC v8.3.0 [Warning!]
 nano.menu.compiler_version.avrgcc8.compiler.path={runtime.platform.path}/tools/avr-gcc/bin/
+
+
+## TIMER ##
+menu.timers=System timer
+
+nano.menu.timers.yes_millis=Enable [Default]
+nano.menu.timers.yes_millis.extra_flags.timer=
+nano.menu.timers.no_millis=Disable [Warning!]
+nano.menu.timers.no_millis.extra_flags.timer=-D_GYVERCORE_NOMILLIS
+
+
+## INIT ##
+menu.init=Initialization
+
+nano.menu.init.enable=Enable [Default] 
+nano.menu.init.enable.extra_flags.init=
+nano.menu.init.no_init=Disable [Warning!]
+nano.menu.init.no_init.extra_flags.init=-D_GYVERCORE_NOINIT
+
+
+## EESAVE
+menu.es=Save EEPROM
+
+nano.menu.es.disabled=Disable
+nano.menu.es.disabled.fuses.EESAVE=1
+nano.menu.es.enabled=Enable
+nano.menu.es.enabled.fuses.EESAVE=0
+
+
+## BOD ##
+menu.bod=B.O.D.
+
+nano.menu.bod.bod_2_7=2.7V [Default]
+nano.menu.bod.bod_2_7.bootloader.extended_fuses=0xFD
+nano.menu.bod.bod_4_3=4.3V
+nano.menu.bod.bod_4_3.bootloader.extended_fuses=0xFC
+nano.menu.bod.bod_1_8=1.8V
+nano.menu.bod.bod_1_8.bootloader.extended_fuses=0xFE
+nano.menu.bod.disable=Disable [Warning!]
+nano.menu.bod.disable.bootloader.extended_fuses=0xFF
+
+## CLOCKOUT
+menu.co=Clock out
+
+nano.menu.co.disabled=Disable [Default]
+nano.menu.co.disabled.fuses.CKOUT=1
+
+nano.menu.co.enabled=Enable [Warning!]
+nano.menu.co.enabled.fuses.CKOUT=0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

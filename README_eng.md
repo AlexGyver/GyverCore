@@ -1,6 +1,6 @@
 ![CORE_PHOTO](https://github.com/AlexGyver/GyverCore/blob/master/gyverCoreLogo.jpg)
 # GyverCore for ATmega328
- **Version 1.10.2 from 07.11.2019**   
+ **Version 2.0 from 01.02.2020**   
  Fast and light core for Arduino IDE with advanced configuration. **Only for ATmega328 boards!**  
  Based on original Arduino 1.8.9 core, all functions are replaced by faster versions, a bunch of interesting staff is added.  
  Made by **AlexGyver** and Egor 'Nich1con' Zaharov from mother Russia.  
@@ -79,8 +79,8 @@ All libraries, based on Wiring functions, works much faster. Even SPI (more than
 - Macros **bitToggle**(value, bit), for fast bit inversion
 - Function **digitalToggle**(pin), for fast pin inversion
 - Advanced ADC
-	- **analogStartConvert**(byte pin) - start convert from choosed pin
-	- **analogGet()** - get converted value (you can make some actions between start and get)
+	- ~~**analogStartConvert**(byte pin) - start convert from choosed pin~~
+	- ~~**analogGet()** - get converted value (you can make some actions between start and get)~~
 	- **analogPrescaler**(uint8_t prescl) - set prescaler for ADC. Prescaler:
 		- **2**: 3.04 us per conversion
 		- **4**: 4.72 us per conversion

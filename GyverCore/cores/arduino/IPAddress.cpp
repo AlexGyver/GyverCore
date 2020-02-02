@@ -18,6 +18,9 @@
 */
 
 #include <Arduino.h>
+
+#ifndef _GYVERCORE_GYVERUART
+
 #include <IPAddress.h>
 
 IPAddress::IPAddress()
@@ -112,3 +115,4 @@ size_t IPAddress::printTo(Print& p) const
     return n;
 }
 
+#endif

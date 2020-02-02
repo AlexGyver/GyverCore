@@ -17,6 +17,8 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
+#ifndef _GYVERCORE_GYVERUART
+
 #ifndef IPAddress_h
 #define IPAddress_h
 
@@ -75,4 +77,5 @@ public:
 
 const IPAddress INADDR_NONE(0,0,0,0);
 
+#endif
 #endif

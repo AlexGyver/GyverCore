@@ -39,10 +39,10 @@ extern "C"{
 #define FALLING 2
 #define RISING 3
 
-#define INTERNAL 28
+#define INTERNAL 3
 #define DEFAULT 1
 #define EXTERNAL 0
-#define THERMOMETR 22
+
 
 // ===== MATH MACRO =====
 #ifdef abs
@@ -103,18 +103,15 @@ void init(void);
 
 // ===== PIN OPERATION ======
 // new
-void lightInit(void);
-void analogStartConvert(byte pin);
 void analogPrescaler(uint8_t prescl);
-int analogGet();
 void digitalToggle(uint8_t pin);
 // old
 void pinMode(uint8_t pin, uint8_t mode);
-void digitalWrite(uint8_t pin, uint8_t x);
+void digitalWrite(uint8_t pin, bool x);
 bool digitalRead (uint8_t pin);
-int analogRead(uint8_t pin);
+uint16_t analogRead(uint8_t pin);
 void analogReference(uint8_t mode);
-void analogWrite(uint8_t pin, int val);
+void analogWrite(uint8_t pin, uint16_t val);
 
 #if defined (_GYVERCORE_NOMILLIS)
 #define millis() 0
@@ -214,7 +211,7 @@ extern const uint8_t PROGMEM digital_pin_to_timer_PGM[];
 #include "WCharacter.h"
 #include "WString.h"
 #include "HardwareSerial.h"
-#include "uart.h"
+#include "GyverCore_uart.h"
 
 #ifdef _GYVERCORE_GYVERUART
 #define Serial uart
