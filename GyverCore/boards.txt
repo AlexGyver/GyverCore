@@ -113,7 +113,7 @@ nano.menu.serial.gyverUart.extra_flags.uart=-D_GYVERCORE_GYVERUART
 ## COMPILER ##
 menu.compiler_version=Compiler version
 
-nano.menu.compiler_version.avrgcc5=AVR-GCC v5.4.0 [Default]
+nano.menu.compiler_version.avrgcc5=AVR-GCC v5.4 or 7.3 [Default]
 nano.menu.compiler_version.avrgcc5.compiler.path={runtime.tools.avr-gcc.path}/bin/
 nano.menu.compiler_version.avrgcc8=AVR-GCC v8.3.0 [Warning!]
 nano.menu.compiler_version.avrgcc8.compiler.path={runtime.platform.path}/tools/avr-gcc/bin/
@@ -166,19 +166,3 @@ nano.menu.co.disabled.fuses.CKOUT=1
 
 nano.menu.co.enabled=Enable [Warning!]
 nano.menu.co.enabled.fuses.CKOUT=0
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

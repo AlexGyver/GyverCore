@@ -125,9 +125,9 @@ void delayMicroseconds(unsigned int us) {
 
   asm volatile
   (
-    "loop: 				\n\t"	
+    "loop_%=: 				\n\t"	
 	"sbiw %[counter],1  \n\t"  // 2 cycles
-    "brne loop  		\n\t" 
+    "brne loop_%=  		\n\t" 
     : [counter]"=w" (us) 
     : "0" (us) 				   // 2 cycles
   );
