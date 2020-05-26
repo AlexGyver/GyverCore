@@ -66,19 +66,19 @@ nano.menu.boot.no.speeds.US1MHZ=666
 ## CLOCK ##
 menu.clock=Clock
 
-nano.menu.clock.external_20=External 20 MHz
-nano.menu.clock.external_20.fuses.CKDIV8=1
-nano.menu.clock.external_20.fuses.CKSEL=111111
-nano.menu.clock.external_20.build.f_cpu=20000000L
-nano.menu.clock.external_20.bootloader.suffix=atmega328
-nano.menu.clock.external_20.upload.speed={speeds.US16MHZ}
-
 nano.menu.clock.external_16=External 16 MHz
 nano.menu.clock.external_16.fuses.CKDIV8=1
 nano.menu.clock.external_16.fuses.CKSEL=111111
 nano.menu.clock.external_16.build.f_cpu=16000000L
 nano.menu.clock.external_16.bootloader.suffix=atmega328
 nano.menu.clock.external_16.upload.speed={speeds.US16MHZ}
+
+nano.menu.clock.external_20=External 20 MHz
+nano.menu.clock.external_20.fuses.CKDIV8=1
+nano.menu.clock.external_20.fuses.CKSEL=111111
+nano.menu.clock.external_20.build.f_cpu=20000000L
+nano.menu.clock.external_20.bootloader.suffix=atmega328
+nano.menu.clock.external_20.upload.speed={speeds.US16MHZ}
 
 nano.menu.clock.external_8=External 8 MHz
 nano.menu.clock.external_8.fuses.CKDIV8=1
