@@ -90,11 +90,11 @@ bool digitalRead (uint8_t pin) {
 
 void digitalToggle(uint8_t pin) {
   if (pin < 8) {
-    bitToggle(PORTD, pin);
+    bitSet(PIND, pin);
   } else if (pin < 14) {
-    bitToggle(PORTB, (pin - 8));
+    bitSet(PINB, (pin - 8));
   } else if (pin < 20) {
-    bitToggle(PORTC, (pin - 14));		// Toggle pin state (for 'tone()')
+    bitSet(PINC, (pin - 14));		// Toggle pin state (for 'tone()')
   }
 }
 
@@ -136,7 +136,7 @@ uint16_t analogRead(uint8_t pin) {
   ADMUX = (analog_reference << 6) | pin;	// Set analog MUX & reference
   bitSet(ADCSRA, ADSC);						// Start 
   while (ADCSRA & (1 << ADSC));				// Wait
-  return ADCL | (ADCH << 8);				// Return result
+  return ADC;								// Return result
 }
 
 
