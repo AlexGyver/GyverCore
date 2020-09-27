@@ -16,8 +16,8 @@
           "category": "Contributed",
 		  "url": "https://github.com/AlexGyver/GyverCore/releases/download/GyverCore-2.0.3/GyverCore.zip",
           "archiveFileName": "GyverCore.zip",
-          "checksum": "MD5:8116f9d81d6c014dc29615600d7afbc9",
-          "size": "59050976",
+          "checksum": "MD5:f489031993c5cf1827f8bc8a95225a83",
+          "size": "59050970",
           "boards": [
             {"name": "ATmega328 based boards"}
           ],
