@@ -1,7 +1,7 @@
 ![CORE_PHOTO](https://github.com/AlexGyver/GyverCore/blob/master/gyverCoreLogo.jpg)
 # GyverCore for ATmega328
  [**▶SWITCH TO ENGLISH◀**](https://github.com/AlexGyver/GyverCore/blob/master/README_eng.md)  
- **Версия 2.0 от 01.02.2020**  
+ **Версия 2.0.3 от 27.09.2020**  
  Быстрое и лёгкое ядро для Arduino IDE с расширенной конфигурацией.  
  Основано на оригинальном ядре Arduino версии 1.8.9, большинство функций заменены на более быстрые и лёгкие аналоги, убрано всё лишнее и не относящееся к микроконтроллеру ATmega328p, убран почти весь Wiring-мусор, код упрощён и причёсан. Добавлено несколько функций и интересных вариантов компиляции.   
  Разработано by Александр **AlexGyver** и Egor 'Nich1con' Zaharov
@@ -300,3 +300,5 @@ parseFloat      | 1070    | 246       | 824
 	- Обновлён uart
 	- Чуть ускорен analogRead
 	- Добавлена поддержка клока 20 МГц
+- 2.0.3
+	- Возвращены стандартные программаторы
