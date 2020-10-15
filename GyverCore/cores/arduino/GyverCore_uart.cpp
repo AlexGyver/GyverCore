@@ -289,8 +289,9 @@ void GyverUart::printHelper(uint32_t data, byte base) {
 
 
 void GyverUart::printBytes(uint32_t data) {
-	int8_t bytes[10];
-	byte amount;
+	int8_t bytes[10] = {};
+	byte amount = 0;
+
 	for (byte i = 0; i < 10; i++) {
 		bytes[i] = data % 10;
 		data /= 10;
