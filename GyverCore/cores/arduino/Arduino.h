@@ -225,7 +225,7 @@ uint16_t makeWord(byte h, byte l);
 unsigned long pulseIn(uint8_t pin, uint8_t state, unsigned long timeout = 1000000L);
 unsigned long pulseInLong(uint8_t pin, uint8_t state, unsigned long timeout = 1000000L);
 
-void tone(uint8_t pin , uint16_t freq, uint32_t duration = 0);
+void tone(uint8_t pin , uint16_t freq, uint32_t duration);
 void noTone(uint8_t pin);
 
 // WMath prototypes
