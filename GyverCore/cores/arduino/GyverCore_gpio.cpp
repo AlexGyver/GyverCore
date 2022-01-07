@@ -85,6 +85,7 @@ bool digitalRead (uint8_t pin) {
   } else if (pin < 20) {
     return bitRead(PINC, pin - 14);		// Return pin state
   }
+  return false;
 }
 
 
