@@ -12,12 +12,12 @@
 		{
           "name": "GyverCore",
           "architecture": "avr",
-          "version": "2.0.3",
+          "version": "2.0.4",
           "category": "Contributed",
-		  "url": "https://github.com/AlexGyver/GyverCore/releases/download/GyverCore-2.0.3/GyverCore.zip",
+		  "url": "https://github.com/AlexGyver/GyverCore/releases/download/GyverCore-2.0.4/GyverCore.zip",
           "archiveFileName": "GyverCore.zip",
-          "checksum": "MD5:f489031993c5cf1827f8bc8a95225a83",
-          "size": "59050970",
+          "checksum": "MD5:44c9f5abbf50d6f282ca1a3d4ee8f51b",
+          "size": "59051979",
           "boards": [
             {"name": "ATmega328 based boards"}
           ],

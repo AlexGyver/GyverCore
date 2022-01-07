@@ -28,13 +28,13 @@ void pinMode(uint8_t pin, uint8_t mode) {
     case OUTPUT:
       if (pin < 8) {
         bitSet(DDRD, pin);
-        bitClear(PORTD, pin);
+        //bitClear(PORTD, pin);
       } else if (pin < 14) {
         bitSet(DDRB, (pin - 8));
-        bitClear(PORTB, (pin - 8));
+        //bitClear(PORTB, (pin - 8));
       } else if (pin < 20) {
         bitSet(DDRC, (pin - 14));	// Mode: OUTPUT
-        bitClear(PORTC, (pin - 8));	// State: LOW
+        //bitClear(PORTC, (pin - 8));	// State: LOW
       }
       return;
     case INPUT_PULLUP:
